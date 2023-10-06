@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./information-about-carrier.css" />
+  </head>
+  <body>
+    <!--Header-->
+    <div
+      class="bg-image"
+      style="
+        background-image: url(../images/bus.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      "
+    >
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a
+            class="navbar-brand mb-0"
+            style="font-size: 30px; font-weight: bold"
+            href="#"
+            >Tofu</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item mb-0">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  style="font-size: 25px; font-weight: bold"
+                  href="#"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  style="font-size: 25px; font-weight: bold"
+                  href="#"
+                  >Carriers</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  style="font-size: 25px; font-weight: bold"
+                  href="#"
+                  >Book tickets</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--main-part-->
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+      "
+    >
+      <!--information-about-carrier-->
+      <div class="information-about-carrier">
+        <!--carrier-img-->
+        <img src="../images/Rectangle 18.png" class="carrier-img" width="399" height="383" />
+        <!--description-->
+        <div class="description">
+          <!--description-title-->
+          <h1 class="description-title">FlixBus</h1>
+          <!--description-paragraph-->
+          <p class="description-paragraph">
+            Flixmobility GmbH — німецька транспортна компанія, що
+            спеціалізується на організації пасажирських автобусних перевезеннях.
+            Заснована 2013 року в Мюнхені. Станом на 2017 рік, компанія
+            здійснювала рейси на 1400 напрямках у 27 країнах Європи. 2017
+            FlixBus перевіз 60 млн пасажирів.
+          </p>
+        </div>
+        <div
+          style="display: flex; flex-direction: column; justify-content: center"
+        >
+          <h2>Share your impression</h2>
+          <div class="form-floating" style="margin-bottom: 1rem">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              id="floatingTextarea2"
+              style="height: 193px; width: 346px"
+            ></textarea>
+            <label for="floatingTextarea2">Comments</label>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 1rem;
+            "
+          >
+            <img src="../images/image 9.png" />
+            <img src="../images/image 9.png" />
+            <img src="../images/image 9.png" />
+            <img src="../images/image 9.png" />
+            <img src="../images/image 9.png" />
+            <span style="align-self: center; font-size: 35px; font-weight: 800"
+              >0/5</span
+            >
+          </div>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            style="
+              font-size: 25px;
+              padding: 0 3rem;
+              width: fit-content;
+              margin: 0 auto;
+            "
+          >
+            Share
+          </button>
+        </div>
+      </div>
+      <!--divider-->
+      <div class="divider"></div>
+
+      <!--comments-->
+      <div class="comments">
+        <span style="font-size: 35px; font-weight: 800">Latest Reviews:</span>
+        <!--rate-->
+        <div class="rate">
+          <div style="width: 400px">
+            <span style="font-weight: 600; font-size: 25px"
+              >veronika.luhovska@gmail.com</span
+            ><br />
+            <span style="font-weight: 400; font-size: 25px">16 June</span><br />
+            <span style="font-weight: 300; font-size: 25px"
+              >Good, very coool!</span
+            >
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 1rem;
+              align-self: flex-start;
+            "
+          >
+            <img src="../images/image 9.png" />
+            <img src="../images/image 9.png" />
+            <img src="../images/image 9.png" />
+            <img src="../images/image 9.png" />
+            <img src="../images/image 9.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer-->
+    <div class="container" style="display: flex; justify-content: center">
+      <footer class="py-3 my-4" style="">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">Carriers</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">Book tickets</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">FAQs</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">About</a>
+          </li>
+        </ul>
+        <p class="text-center text-muted">© 2023 Tofu Company, Inc</p>
+      </footer>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
