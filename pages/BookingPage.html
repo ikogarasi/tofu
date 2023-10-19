@@ -14,76 +14,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <style>
-      .custom-border__left {
-        border-left: 4px solid #ff8400;
-        padding-left: 0.8rem;
-      }
-
-      .bus-title {
-        font-size: 15px;
-        font-weight: bold;
-      }
-
-      .bus-date {
-        font-size: 13px;
-      }
-
-      .bus-station__address {
-        font-size: 15px;
-    }
-        
-      .dot {
-        margin-top: 5px;
-        border: 2px red solid;
-        border-radius: 100%;
-        width: 13px;
-        height: 13px;
-        background-color: #fff;
-        display: block;
-        z-index: 2;
-      }
-      
-      .dot-first {
-        position: relative;
-        margin-top: 5px;
-        border: 2px red solid;
-        border-radius: 50%;
-        width: 13px;
-        height: 13px;
-        background-color: #fff;
-        display: block;
-        z-index: 2;
-      }
-
-      .dot-first:after {
-        margin-top: 13px;
-        position: absolute;
-        border: 2px dashed #c5c5c5;
-        left: 30%;
-        width: 0;
-        height: 66px;
-        display: block;
-        content: '';
-        z-index: 1;
-      }      
-
-      .price-afterdot {
-        font-size: 14px;
-      }
-
-      .price {
-        font-size: 16px
-      }
-
-      .summary-price {
-        font-size: 20px;
-      }
-
-      .summary-price_afterdot {
-        font-size: 18px;
-      }
-    </style>
+    <link href="./booking-page.css" rel="stylesheet" />
   </head>
   <body style="position: relative; min-height: 100vh">
     <header
@@ -180,15 +111,13 @@
                   <div
                     class="row border border-dark rounded w-100 pt-2 pb-2 ms-1"
                   >
-                  <div class="col-2 text-start">
-                    <i class="fa-solid fa-couch"></i>
-                  </div>
-                  <div class="col-8 text-center">
+                    <div class="col-2 text-start">
+                      <i class="fa-solid fa-couch"></i>
+                    </div>
+                    <div class="col-8 text-center">
                       <span>Вільна розсадка</span>
-                  </div>
-                  <div class="col-2">
-
-                  </div>
+                    </div>
+                    <div class="col-2"></div>
                   </div>
                 </div>
               </div>
@@ -223,9 +152,14 @@
                   </div>
                 </div>
                 <div class="ps-3 d-flex justify-content-center row pt-3">
-                    <button class="btn btn-primary fw-bold w-50">Забронювати</button>
+                  <a
+                    href="https://youtu.be/Jxq5C67fqWs?si=0VmtSMBSESfDu5Ud"
+                    class="btn btn-primary fw-bold w-50"
+                  >
+                    Забронювати
+                  </a>
                 </div>
-            </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-4 col-md">
@@ -234,54 +168,63 @@
                 <h3>Про рейс</h3>
                 <hr />
                 <div class="row mb-3">
-                    <div class="col-3">
-                        <div class="bus-title">11:05</div>
-                        <div class="bus-date">14 жовт.</div>
+                  <div class="col-3">
+                    <div class="bus-title">11:05</div>
+                    <div class="bus-date">14 жовт.</div>
+                  </div>
+                  <div class="col-1">
+                    <div class="dot-first"></div>
+                  </div>
+                  <div class="col-8">
+                    <div class="bus-title">Львів</div>
+                    <div class="bus-station__address">
+                      Автостанція №8, Двірцева площа; будинок 1
                     </div>
-                    <div class="col-1">
-                        <div class="dot-first"></div>  
-                    </div>
-                    <div class="col-8">
-                        <div class="bus-title">Львів</div>
-                        <div class="bus-station__address">Автостанція №8, Двірцева площа; будинок 1</div>
-                    </div>
+                  </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-3">
-                        <div class="bus-title">16:35</div>
-                        <div class="bus-date">14 жовт.</div>
+                  <div class="col-3">
+                    <div class="bus-title">16:35</div>
+                    <div class="bus-date">14 жовт.</div>
+                  </div>
+                  <div class="col-1">
+                    <div class="dot"></div>
+                  </div>
+                  <div class="col-8">
+                    <div class="bus-title">Краків</div>
+                    <div class="bus-station__address">
+                      Автостанція Краків, вулиця Босацька; будинок 18
                     </div>
-                    <div class="col-1">
-                        <div class="dot"></div>
-                    </div>
-                    <div class="col-8">
-                        <div class="bus-title">Краків</div>
-                        <div class="bus-station__address">Автостанція Краків, вулиця Босацька; будинок 18</div>
-                    </div>
+                  </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-6 text-start">
-                        <span>Ціна:</span>
-                    </div>
-                    <div class="col-6 text-end">
-                        <span class="price">560,</span><span class="price-afterdot">00 грн.</span>
-                    </div>
+                  <div class="col-6 text-start">
+                    <span>Ціна:</span>
+                  </div>
+                  <div class="col-6 text-end">
+                    <span class="price">560,</span
+                    ><span class="price-afterdot">00 грн.</span>
+                  </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-6 text-start">
-                        <div class="summary-price">До сплати:</div>
-                        <div class="summary-price">(1 дорослий)</div>
-                    </div>
-                    <div class="col-6 text-end">
-                        <div class="summary-price">&nbsp;</div>
-                        <div class="summary-price">560,</в><span class="summary-price_afterdot">00 грн.</span>
-                    </div>
+                  <div class="col-6 text-start">
+                    <div class="summary-price">До сплати:</div>
+                    <div class="summary-price">(1 дорослий)</div>
+                  </div>
+                  <div class="col-6 text-end">
+                    <div class="summary-price">&nbsp;</div>
+                    <span class="summary-price">560,</span
+                    ><span class="summary-price_afterdot">00 грн.</span>
+                  </div>
                 </div>
-            </div>
-            <hr class="mb-3"/>
-            <div class="mb-1">
-                <a href="https://youtu.be/dQw4w9WgXcQ?si=_U-CCqfBb6G43qbF&t=2" class="text-danger text-decoration-none">Умови повернення</a>
-            </div>
+                <hr class="mb-3" />
+                <div class="mb-1">
+                  <a
+                    href="https://youtu.be/dQw4w9WgXcQ?si=_U-CCqfBb6G43qbF&t=2"
+                    class="text-danger text-decoration-none"
+                    >Умови повернення</a
+                  >
+                </div>
               </div>
             </div>
           </div>
