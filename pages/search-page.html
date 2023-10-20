@@ -14,7 +14,7 @@
   </head>
   <body>
     <!--Header-->
-    <div
+    <header
       class="bg-image"
       style="
         background-image: url(../images/bus.jpg);
@@ -45,7 +45,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item mb-0">
                 <a
-                  class="nav-link"
+                  class="nav-link active"
                   aria-current="page"
                   style="font-size: 25px; font-weight: bold"
                   href="#"
@@ -62,7 +62,7 @@
               </li>
               <li class="nav-item">
                 <a
-                  class="nav-link active"
+                  class="nav-link"
                   style="font-size: 25px; font-weight: bold"
                   href="#"
                   >Book tickets</a
@@ -72,7 +72,7 @@
           </div>
         </div>
       </nav>
-    </div>
+    </header>
 
     <!--main-part-->
     <div class="main-part">
@@ -112,7 +112,7 @@
               class="input-group-text"
               id="basic-addon2"
               style="border: none; background-color: white"
-              ><img src="../images/Group 6.png"
+              ><img src="../images/location_marker.png"
             /></span>
             <input
               type="text"
@@ -128,7 +128,7 @@
               border: var(--bs-border-width) solid var(--bs-border-color);
               padding: 5px;
             "
-            src="../images/image 3.png"
+            src="../images/swap.png"
             width="39"
             height="39"
           />
@@ -138,7 +138,7 @@
               class="input-group-text"
               id="basic-addon2"
               style="border: none; background-color: white"
-              ><img src="../images/Group 6.png"
+              ><img src="../images/location_marker.png"
             /></span>
             <input
               type="text"
@@ -149,38 +149,39 @@
           </div>
         </div>
 
-        <!--date-input-->
-        <div style="display: flex; flex-direction: column; margin: 0 auto">
-          <h6>Відправлення</h6>
-          <div class="input-group" style="width: fit-content">
-            <span
-              class="input-group-text"
-              id="basic-addon2"
-              style="background-color: white; border-right: none"
-              ><img src="../images/image 4.png"
-            /></span>
-            <input
-              type="date"
-              class="form-control"
-              style="max-width: 20rem; border-left: none"
-            />
+        <div class="date-input-and-passangers">
+          <!--date-input-->
+          <div style="display: flex; flex-direction: column">
+            <h6>Відправлення</h6>
+            <div class="input-group" style="width: fit-content">
+              <span
+                class="input-group-text"
+                id="basic-addon2"
+                style="background-color: white; border-right: none"
+                ><img src="../images/calendar.png"
+              /></span>
+              <input
+                type="date"
+                class="form-control"
+                style="max-width: 20rem; border-left: none"
+              />
+            </div>
           </div>
-        </div>
 
-        <!--passengers-amount-->
-        <div class="passengers-amount">
-          <h6>Пасажири</h6>
-          <select
-            class="form-select"
-            id="floatingSelect"
-            aria-label="Floating label select example"
-            style="max-width: 15rem"
-          >
-            <option selected>Оберіть кількість пасажирів</option>
-            <option value="1">1 пасажир</option>
-            <option value="2">2 пасажири</option>
-            <option value="3">3 пасажири</option>
-          </select>
+          <!--passengers-amount-->
+          <div class="passengers-amount">
+            <h6>Пасажири</h6>
+            <select
+              class="form-select"
+              id="floatingSelect"
+              aria-label="Floating label select example"
+            >
+              <option selected>Оберіть кількість пасажирів</option>
+              <option value="1">1 пасажир</option>
+              <option value="2">2 пасажири</option>
+              <option value="3">3 пасажири</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -197,7 +198,7 @@
         "
       >
         <!--select-date-->
-        <div style="display: flex; flex-wrap: wrap; margin-bottom: 1rem">
+        <div class="select-date">
           <div
             style="
               height: 59px;

@@ -28,7 +28,6 @@
 
 .passengers-amount {
   width: 277px;
-  margin: 0 auto;
 }
 
 .more-results {
@@ -73,6 +72,17 @@
   align-items: flex-end;
 }
 
+.date-input-and-passangers {
+  display: flex;
+  justify-content: space-evenly;
+  width: 40rem;
+}
+
+.select-date {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
 @media (max-width: 1400px) {
   .checkbox-area {
     width: 100%;
@@ -87,10 +97,11 @@
     width: 100%;
     margin: 2rem 0;
   }
-  .nessessory-information {
+  .date-input-and-passangers {
     display: flex;
-    flex-wrap: wrap;
-    margin: 2rem 0;
+    justify-content: space-between;
+    width: 40rem;
+    margin: 1rem auto;
   }
 }
 
@@ -122,14 +133,20 @@
     flex-wrap: wrap;
   }
 
+  .select-date {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
   .short-information {
     width: 100%;
   }
-  
+
   .short-information-s {
     width: 100%;
   }
-  
+
   .price-section {
     width: 100%;
     height: 100%;
