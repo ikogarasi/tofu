@@ -5,45 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tofu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="./homepage.css" />
     <style>
           
     </style>
 </head>
 <body>
-  <header class="bg-image" style="background-image: url(../images/bus.jpg);
-background-repeat: no-repeat;
-background-size: cover;
-height: 500px;">
+  <header class="bg-image" >
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand mb-0" style="font-size: 30px; font-weight: bold;" href="#">Tofu</a>
+      <a class="navbar-brand mb-0" href="#">Tofu</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item mb-0">
-            <a class="nav-link active" aria-current="page" style="font-size: 25px; font-weight: bold;" href="#">Home</a>
+            <a  class="header-link nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: 25px; font-weight: bold;" href="#">Carriers</a>
+          <li class="header-link nav-item">
+            <a class="nav-link" href="#">Carriers</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: 25px; font-weight: bold;" href="#">Book tickets</a>
+          <li class="header-link nav-item">
+            <a class="nav-link" href="#">Book tickets</a>
           </li>
         </ul>
-          <a type="button" class="nav-link btn btn-outline-light" style="font-size: 15px; font-weight: bold;text-align: right; color: white;" href="#">Sign in</a>
+          <a type="button" class="button-sign-in nav-link btn btn-outline-light" href="#">Sign in</a>
         
       </div>
     </div>
   </nav>
   <div class="text-white text-center py-5">
-    <h1 style="font-weight: bold;">Find your comfortable way to home!
+    <h1 class="header-h1">Find your comfortable way to home!
     </h1>
 </div>
+<div class="d-none d-lg-block">
 <div class="container">
-    <form action="" class="col-md-6 m-auto py-5">
+    <form action="" class="col-md-8 m-auto py-5">
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="From..." aria-label="From">
         <span class="input-group-text">⇆</span>
@@ -62,7 +60,40 @@ height: 500px;">
         <button type="button" class="btn btn-primary" type="submit">Search</button>
       </div>
     </form>
-</div>
+    </div>
+  </div>
+  <!--Mobile-->
+  <div class="d-lg-none">
+    <div class="container">
+      <form action="" >
+      <div class="form-row m-auto"> 
+      <div class="input-group mb-3 col-md-6">
+          <input type="text" class="form-control" placeholder="From..." aria-label="From">
+          <span class="input-group-text">⇆</span>
+          <div class="input-group mb-3 col-md-6"></div>
+          <input type="text" class="col-1 form-control " placeholder="To.." aria-label="To">
+        </div>
+        <div class="input-group mb-3 col-md-6">
+          <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-day" viewBox="0 0 16 16">
+            <path d="M4.684 12.523v-2.3h2.261v-.61H4.684V7.801h2.464v-.61H4v5.332h.684zm3.296 0h.676V9.98c0-.554.227-1.007.953-1.007.125 0 .258.004.329.015v-.613a1.806 1.806 0 0 0-.254-.02c-.582 0-.891.32-1.012.567h-.02v-.504H7.98v4.105zm2.805-5.093c0 .238.192.425.43.425a.428.428 0 1 0 0-.855.426.426 0 0 0-.43.43zm.094 5.093h.672V8.418h-.672v4.105z"/>
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+            <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+          </svg>
+        </span>
+          <input type="datetime-local" class="form-control w-25 " placeholder="Start.." aria-label="Start">
+        </div>
+        <div class="input-group mb-3 col-md-6">
+          <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+          </svg></span>
+          <input type="text" class="form-control" placeholder="1 Adult" aria-label="1 Adult">
+          <button type="button" class="btn btn-primary" type="submit">Search</button>
+        </div>
+        </div>
+      </div> 
+      </form>
+      </div>
+  </div>
 </header>
         <div class="container px-4 py-5" id="hanging-icons">
           <h2 class="pb-2 border-bottom">Why you choose us?</h2>

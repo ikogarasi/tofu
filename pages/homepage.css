@@ -1,0 +1,31 @@
+.bg-image {
+background-image: url(../images/bus.jpg);
+background-repeat: no-repeat;
+background-size: cover;
+height: 500px;
+}
+
+.header-link {
+    font-size: 25px; 
+    font-weight: bold;
+}
+
+.navbar-brand {
+    font-size: 30px; 
+    font-weight: bold;
+}
+
+.button-sign-in {
+    font-size: 15px; 
+    font-weight: bold;
+    text-align: right; 
+    color: white;
+}
+
+.header-h1 {
+    font-weight: bold;
+}
+
+.d-none {
+    display: none;
+}
