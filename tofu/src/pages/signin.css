@@ -1,7 +1,8 @@
 .bg-image {
-    background-image: url(../images/bus.jpg);
+background-image: url(../images/bus.jpg);
 background-repeat: no-repeat;
 background-size: cover;
+height: 100px;
 }
 
 .header-link {

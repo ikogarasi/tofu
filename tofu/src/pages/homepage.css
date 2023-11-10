@@ -5,6 +5,10 @@ background-size: cover;
 height: 500px;
 }
 
+.root {
+    width: 100%;
+}
+
 .header-link {
     font-size: 25px; 
     font-weight: bold;
@@ -28,4 +32,9 @@ height: 500px;
 
 .d-none {
     display: none;
+}
+
+.dropdown-city {
+    margin-top: 35px !important; 
+    width: 5px;
 }
