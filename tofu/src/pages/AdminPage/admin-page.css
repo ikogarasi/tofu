@@ -1,4 +1,4 @@
-.result-set {
+.resultSet {
     height: 169px;
     width: 920px;
     background-color: white;
@@ -11,15 +11,15 @@
     margin-bottom: 1rem;
   }
   
-  .short-information {
+  .shortInformation {
     width: 45%;
   }
   
-  .short-information-s {
+  .shortInformationS {
     width: 30%;
   }
   
-  .price-section {
+  .priceSection {
     width: 25%;
     height: 100%;
     display: flex;
@@ -29,7 +29,7 @@
   }
 
   @media (max-width: 920px) {
-    .result-set {
+    .resultSet {
       height: fit-content;
       flex-direction: column;
       width: 100%;
@@ -44,15 +44,15 @@
       flex-wrap: wrap;
     }
   
-    .short-information {
+    .shortInformation {
       width: 100%;
     }
   
-    .short-information-s {
+    .shortInformation-s {
       width: 100%;
     }
   
-    .price-section {
+    .priceSection {
       width: 100%;
       height: 100%;
       display: flex;
