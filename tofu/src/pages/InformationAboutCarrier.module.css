@@ -1,0 +1,133 @@
+.information-about-carrier {
+  display: flex;
+  width: 1338px;
+  justify-content: space-between;
+}
+
+.divider {
+  width: 1338px;
+  height: 1px;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comments {
+  width: 1338px;
+}
+
+.rate {
+  display: flex;
+}
+
+.description {
+  width: 462px;
+  align-self: center;
+}
+
+.description-paragraph {
+  font-size: 25px;
+  height: 270px;
+  overflow: hidden;
+}
+
+@media (max-width: 1338px) {
+  .information-about-carrier {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .description-paragraph {
+    font-size: 25px;
+    height: 270px;
+    text-align: justify;
+    overflow: hidden;
+  }
+
+  .description-title {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .carrier-img {
+    width: 462px;
+    height: 462px;
+  }
+}
+
+@media (max-width: 700px) {
+  .rate {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    flex-direction: column;
+    padding: 1rem;
+  }
+}
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.impressions-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.impression-text-area {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.share-button {
+  font-size: 25px;
+  padding: 0 3rem;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.comments-header {
+  font-size: 35px;
+  font-weight: 800;
+}
+
+.information-about-comment {
+  width: 400px;
+}
+
+.user-email {
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.comment-date {
+  font-weight: 400;
+  font-size: 25px;
+}
+
+.comment-text {
+  font-weight: 300;
+  font-size: 25px;
+}

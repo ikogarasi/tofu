@@ -1,0 +1,19 @@
+.input-destination {
+  display: flex;
+  border-color: #c6c6c6;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  max-width: 663px;
+  width: fit-content;
+  align-self: flex-end;
+  height: fit-content;
+}
+
+.swap-btn {
+  border-radius: 50%;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  padding: 8px;
+  display: flex;
+  align-self: center;
+}

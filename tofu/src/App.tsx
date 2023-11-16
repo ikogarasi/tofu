@@ -1,22 +1,29 @@
-import { useState } from 'react'
-import './App.css'
-import { Signin } from './pages/SignIn'
-import { HomePage } from './pages/HomePage'
-import { Route, Routes } from 'react-router-dom'
-import { RegisterPage } from './pages/RegisterPage'
+import "./App.css";
+import React from 'react';
+import { Signin } from "./pages/SignIn";
+import RootLayout from "./components/RootLayout";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RegisterPage } from "./pages/RegisterPage";
+import InformationAboutCarrier from "./pages/InformationAboutCarrier";
+import SearchPage from "./pages/SearchPage";
+import { HomePage } from "./pages/HomePage";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        { index: true, element: <HomePage /> },
+        { path: "signIn", element: <Signin /> },
+        { path: "register", element: <RegisterPage /> },
+        { path: "about-carrier", element: <InformationAboutCarrier /> },
+        { path: "search-page", element: <SearchPage /> },
+      ],
+    },
+  ]);
 
-  return (
-    <>
-    <Routes>
-      <Route path='/' element={<HomePage/>}/>
-      <Route path='/signIn' element={<Signin/>}/>
-      <Route path='/register' element={<RegisterPage/>}/>
-    </Routes>
-    </>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
