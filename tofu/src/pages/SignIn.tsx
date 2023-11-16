@@ -32,7 +32,7 @@ export const Signin = () => {
 
     return(
         <div>
-        <header className="bg-image">
+        <header className="bgImage">
         <nav className="navbar navbar-expand-lg navbar-dark">
             <div className="container-fluid">
               <a className="navbar-brand mb-0" style={{fontSize: '30px', fontWeight: 'bold'}} href="#">Tofu</a>
@@ -98,7 +98,7 @@ export const Signin = () => {
                                 </div>
               
                                 <a className="small text-muted" href="#!">Forgot password?</a>
-                                <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <a href="#!"
+                                <p className="mb-5 pb-lg-2" style={{color: '#393f81'}}>Don't have an account? <a href="/register"
                                     style={{color: 'blue'}}>Register here</a></p>
                                 <a href="#!" className="small text-muted">Terms of use.</a>
                                 <a href="#!" className="small text-muted">Privacy policy</a>
