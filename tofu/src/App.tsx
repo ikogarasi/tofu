@@ -1,21 +1,33 @@
 import "./App.css";
+import React from "react";
 import { Signin } from "./pages/SignIn";
-import { HomePage } from "./pages/HomePage";
-import { Route, Routes } from "react-router-dom";
+import RootLayout from "./components/RootLayout";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { RegisterPage } from "./pages/RegisterPage";
-import AdminPage from "./pages/AdminPage/AdminPage";
+import InformationAboutCarrier from "./pages/InformationAboutCarrier";
+import SearchPage from "./pages/SearchPage";
+import { HomePage } from "./pages/HomePage";
+import AdminPage from "./components/AdminPage/AdminPage";
+import BookingPage from "./components/BookingPage/BookingPage";
 
 function App() {
-  return (
-    <>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signIn" element={<Signin />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/adminPage" element={<AdminPage />} />
-      </Routes>
-    </>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        { index: true, element: <HomePage /> },
+        { path: "signIn", element: <Signin /> },
+        { path: "register", element: <RegisterPage /> },
+        { path: "about-carrier", element: <InformationAboutCarrier /> },
+        { path: "search-page", element: <SearchPage /> },
+        { path: "admin-page", element: <AdminPage /> },
+        { path: "booking-page", element: <BookingPage /> },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
