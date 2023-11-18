@@ -1,15 +1,59 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./BookingPage.module.css";
 import WeekendOutlinedIcon from "@mui/icons-material/WeekendOutlined";
+import validator from "validator";
+
+interface BookingFields {
+  firstName: boolean;
+  lastName: boolean;
+  email: boolean;
+  phoneNumber: boolean;
+}
 
 const Booking = () => {
   const [firstName, setFirstName] = useState<string>();
   const [lastName, setLastName] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [phoneNumber, setPhoneNumber] = useState<string>();
+  const [email, setEmail] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+
+  const [validFields, setValidFields] = useState<BookingFields>({
+    firstName: true,
+    lastName: true,
+    email: true,
+    phoneNumber: true,
+  });
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    const fields: BookingFields = {
+      firstName: true,
+      lastName: true,
+      email: true,
+      phoneNumber: true,
+    };
+
+    if (!firstName) {
+      fields.firstName = false;
+    }
+
+    if (!lastName) {
+      fields.lastName = false;
+    }
+
+    if (!validator.isMobilePhone(phoneNumber)) {
+      fields.phoneNumber = false;
+    }
+
+    if (!validator.isEmail(email)) {
+      fields.email = false;
+    }
+
+    setValidFields(fields);
+  };
 
   return (
-    <>
+    <form onSubmit={handleSubmit} noValidate={true}>
       <div className="card pb-3 mb-3">
         <div className="card-body pt-4">
           <h3>Оформлення квитка</h3>
@@ -18,7 +62,9 @@ const Booking = () => {
               <label className="text-secondary mb-2">Ім'я</label>
               <input
                 type="text"
-                className="form-control"
+                className={`form-control ${
+                  !validFields.firstName && "is-invalid"
+                }`}
                 placeholder="Іван"
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -27,7 +73,9 @@ const Booking = () => {
               <label className="text-secondary mb-2">Прізвище</label>
               <input
                 type="text"
-                className="form-control"
+                className={`form-control ${
+                  !validFields.lastName && "is-invalid"
+                }`}
                 placeholder="Хвищун"
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -61,7 +109,7 @@ const Booking = () => {
               <input
                 type="email"
                 id="firstNameInput"
-                className="form-control"
+                className={`form-control ${!validFields.email && "is-invalid"}`}
                 placeholder="xiocompan@gmail.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -71,23 +119,26 @@ const Booking = () => {
               <input
                 type="text"
                 id="firstNameInput"
-                className="form-control"
+                className={`form-control ${
+                  !validFields.phoneNumber && "is-invalid"
+                }`}
                 placeholder="+380 __ ___ ____"
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
           </div>
           <div className="ps-3 d-flex justify-content-center row pt-3">
-            <a
-              href="https://youtu.be/Jxq5C67fqWs?si=0VmtSMBSESfDu5Ud"
+            <button
+              //href="https://youtu.be/Jxq5C67fqWs?si=0VmtSMBSESfDu5Ud"
+              type="submit"
               className="btn btn-primary fw-bold w-50"
             >
               Забронювати
-            </a>
+            </button>
           </div>
         </div>
       </div>
-    </>
+    </form>
   );
 };
 

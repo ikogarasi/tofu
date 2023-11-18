@@ -10,22 +10,24 @@
     box-shadow: 0 2px 5px gray;
     margin-bottom: 1rem;
   }
-  
-  .short__information {
-    width: 45%;
-  }
-  
-  .short__information-s {
-    width: 30%;
-  }
+
+  .dropdown-city {
+    margin-top: 35px !important; 
+    width: 5px;
+}
   
   .price__section {
-    width: 25%;
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: flex-end;
+  }
+
+  .remove__button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 20px;
   }
 
   @media (max-width: 920px) {

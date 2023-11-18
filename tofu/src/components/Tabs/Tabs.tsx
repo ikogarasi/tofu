@@ -24,9 +24,7 @@ const Tabs = ({ tabBody, tabHeaders }: TabsProps) => {
         {tabHeaders.map((value, i) => (
           <li key={i} className="nav-item" role="presentation">
             <button
-              className={
-                i !== selectedTabIndex ? "nav-link" : "nav-link active"
-              }
+              className={`nav-link ${i === selectedTabIndex && "active"}`}
               onClick={() => setSelectedTabIndex(i)}
               id={`${value.targetName}-tab`}
               data-bs-toggle="tab"
@@ -44,11 +42,9 @@ const Tabs = ({ tabBody, tabHeaders }: TabsProps) => {
       <div className="tab-content">
         {tabBody.map((value, i) => (
           <div
-            className={
-              i !== selectedTabIndex
-                ? "tab-pane fade"
-                : "tab-pane fade show active"
-            }
+            className={`tab-pane fade ${
+              i === selectedTabIndex && "show active"
+            }`}
             id={value.targetName}
             role="tabpanel"
             aria-labelledby={`${value.targetName}-tab`}

@@ -16,38 +16,42 @@ const ReviewTrips = ({ trips }: Props) => {
     >
       {trips.map((trip, i) => (
         <div key={i} className={styles["result__set"]}>
-          <div className={styles["short__information"]}>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <p style={{ margin: 0, fontWeight: "bold", fontSize: "15px" }}>
-                {trip.departureTime}
-              </p>
+          <div className="col">
+            <div className="d-flex flex-row justify-content-between w-100">
+              <div className="col-4">
+                <p style={{ margin: 0, fontWeight: "bold", fontSize: "15px" }}>
+                  {trip.departureTime}
+                </p>
+                <p style={{ fontSize: "15px", marginBottom: "2rem" }}>
+                  {trip.departureStation}
+                </p>
+              </div>
+              <div className="col-4">
+                <p style={{ margin: 0, fontWeight: "bold", fontSize: "15px" }}>
+                  {trip.arrivalTime}
+                </p>
+                <p>{trip.arrivalStation}</p>
+              </div>
+              <div className={`col-4 ${styles["price__section"]}`}>
+                <h3>{trip.price.toFixed(2)} грн</h3>
+              </div>
             </div>
-
-            <p style={{ fontSize: "15px", marginBottom: "2rem" }}>
-              {trip.departureStation}
-            </p>
-
-            <h2 style={{ fontSize: "30px", fontWeight: 700 }}>
-              Перевізник: {trip.carrier}
-            </h2>
-          </div>
-
-          <div className={styles["short__information-s"]}>
-            <p style={{ margin: 0, fontWeight: "bold", fontSize: "15px" }}>
-              {trip.arrivalTime}
-            </p>
-            <p>{trip.arrivalStation}</p>
-          </div>
-
-          <div className={styles["price__section"]}>
-            <h3>{trip.price.toFixed(2)} грн</h3>
-            <button
-              type="button"
-              className="btn btn-danger"
-              style={{ width: "150px" }}
-            >
-              Delete
-            </button>
+            <div className="row">
+              <div className="col-md-6 col-sm">
+                <h2 style={{ fontSize: "30px", fontWeight: 700 }}>
+                  Перевізник: {trip.carrier}
+                </h2>
+              </div>
+              <div className={`col-md-6 col-sm ${styles["remove__button"]}`}>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  style={{ width: "150px" }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       ))}
