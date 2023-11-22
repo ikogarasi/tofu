@@ -17,7 +17,7 @@ const RootLayout = () => {
   }, [location]);
   return (
     <>
-      {!homePageActive && <Header homePageActive={homePageActive} />}
+      {!homePageActive && <Header homePageActive={homePageActive} pathname={location.pathname} />}
       <Outlet />
       <Footer />
     </>

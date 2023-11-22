@@ -15,11 +15,47 @@ import {
 import { useState } from "react";
 import DirectionSelector from "../components/SearchPage/DirectionSelector";
 import ResultCard from "../components/SearchPage/ResultCard";
-
-
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import {
+  AvailableDate,
+  Connection,
+  Ticket,
+} from "../store/slices/connection.slice";
+import dayjs from "dayjs";
 
 const SearchPage = () => {
   const [countOfPassengers, setCountOfPassengers] = useState();
+  const [date, setDate] = useState(dayjs("2023-11-10"));
+  const connection: Connection | undefined = useSelector((state: RootState) => {
+    const foundConnection = state.connection.find((element) => {
+      return element.from === "Львів" && element.to === "Київ";
+    });
+    return foundConnection;
+  });
+
+  const [availableDates, setAvalableDates] = useState<AvailableDate | null>(
+    () => {
+      if (connection == undefined) {
+        return null;
+      }
+
+      const item = connection.availableDates.find((element) => {
+        return element.date === date.toDate();
+      });
+      if (item == undefined) {
+        return null;
+      }
+      return item;
+    }
+  );
+
+  const [tickets, setTickets] = useState<Ticket[] | null>(() => {
+    if (availableDates == null) {
+      return null;
+    }
+    return availableDates.tickets;
+  });
 
   const onChangePassengersCount = (event: any) => {
     setCountOfPassengers(event.target.value);
@@ -56,6 +92,7 @@ const SearchPage = () => {
               <h6>Відправлення</h6>
               <div className={classes["input-group"]}>
                 <DatePicker
+                  value={date}
                   slotProps={{
                     inputAdornment: {
                       position: "start",
@@ -110,6 +147,9 @@ const SearchPage = () => {
               </div>
             </div>
           </div>
+          {tickets?.map(() => {
+            return <ResultCard />
+          })}
           <ResultCard />
         </div>
       </div>

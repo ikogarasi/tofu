@@ -1,4 +1,4 @@
-import "../pages/homepage.css";
+import "../../pages/homepage.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 const Footer = () => {

@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import { Signin } from "./pages/SignIn";
-import RootLayout from "./components/RootLayout";
+import RootLayout from "./components/MainLayout/RootLayout";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { RegisterPage } from "./pages/RegisterPage";
 import InformationAboutCarrier from "./pages/InformationAboutCarrier";
