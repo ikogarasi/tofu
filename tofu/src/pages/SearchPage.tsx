@@ -147,6 +147,9 @@ const SearchPage = () => {
               </div>
             </div>
           </div>
+          {tickets?.map(() => {
+            return <ResultCard />
+          })}
           <ResultCard />
         </div>
       </div>
