@@ -1,11 +1,12 @@
-import "../pages/homepage.css";
+import "../../pages/homepage.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 export interface HeaderProps {
   homePageActive: boolean;
+  pathname: string;
 }
 
-const Header = ({ homePageActive }: HeaderProps) => {
+const Header = ({ homePageActive, pathname }: HeaderProps) => {
   return (
     <div className="bg-image back-img">
       <nav className="navbar navbar-expand-lg navbar-dark">
@@ -40,7 +41,7 @@ const Header = ({ homePageActive }: HeaderProps) => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link a-style" href="#">
+                <a className={`${"nav-link a-style"} ${pathname == "/carriers" && "nav-link active a-style"}`} href="#">
                   Carriers
                 </a>
               </li>
