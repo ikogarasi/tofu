@@ -9,6 +9,7 @@ import SearchPage from "./pages/SearchPage";
 import { HomePage } from "./pages/HomePage";
 import AdminPage from "./components/AdminPage/AdminPage";
 import BookingPage from "./components/BookingPage/BookingPage";
+import { InfoAllCarriers } from "./pages/InfoAllCarriers";
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +24,7 @@ function App() {
         { path: "search-page", element: <SearchPage /> },
         { path: "admin-page", element: <AdminPage /> },
         { path: "booking-page", element: <BookingPage /> },
+        { path: 'all', element: <InfoAllCarriers/>},
       ],
     },
   ]);

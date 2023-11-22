@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./homepage.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Dropdown } from "react-bootstrap";
+import Geocode from "react-geocode";
 
 export const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -9,6 +10,9 @@ export const HomePage = () => {
   const [matchingCities, setMatchingCities] = useState<string[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [isDropdownVisible1, setIsDropdownVisible1] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date(98, 0));
+  const today = new Date().toISOString().slice(0, 16);
 
   const handleInputChange = (inputText: string, inputNumber: number) => {
     // Шукаємо міста, що починаються з введених букв
@@ -83,12 +87,12 @@ export const HomePage = () => {
                   </a>
                 </li>
                 <li className="header-link nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/all">
                     Carriers
                   </a>
                 </li>
                 <li className="header-link nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/booking-page">
                     Book tickets
                   </a>
                 </li>
@@ -96,7 +100,7 @@ export const HomePage = () => {
               <a
                 type="button"
                 className="button-sign-in btn btn-outline-light"
-                href="/signin"
+                href="/signIn"
               >
                 Sign in
               </a>
@@ -183,6 +187,11 @@ export const HomePage = () => {
                   className="form-control w-25"
                   placeholder="Start.."
                   aria-label="Start"
+                  onChange={(e) => {
+                    setStartDate(new Date(e.target.value));
+                  }}
+                  value={startDate.toISOString().slice(0, 16)}
+                  min={today}
                 />
                 <span className="input-group-text">
                   <svg
@@ -308,7 +317,7 @@ export const HomePage = () => {
                 We'll add onto it with another sentence and probably just keep
                 going until we run out of words.
               </p>
-              <a href="#" className="btn btn-primary">
+              <a href="/booking-page" className="btn btn-primary">
                 Let me try!
               </a>
             </div>
@@ -334,7 +343,7 @@ export const HomePage = () => {
                 We'll add onto it with another sentence and probably just keep
                 going until we run out of words.
               </p>
-              <a href="#" className="btn btn-primary">
+              <a href="/all" className="btn btn-primary">
                 Check
               </a>
             </div>
@@ -362,7 +371,7 @@ export const HomePage = () => {
                 We'll add onto it with another sentence and probably just keep
                 going until we run out of words.
               </p>
-              <a href="#" className="btn btn-primary">
+              <a href="/signIn" className="btn btn-primary">
                 Sign in
               </a>
             </div>
@@ -371,36 +380,7 @@ export const HomePage = () => {
       </div>
 
       <div className="container">
-        <footer className="py-3 my-4">
-          <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                Carriers
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                Book tickets
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                FAQs
-              </a>
-            </li>
-            <li className="nav-item">
-              <a href="#" className="nav-link px-2 text-muted">
-                About
-              </a>
-            </li>
-          </ul>
-          <p className="text-center text-muted">© 2023 Tofu Company, Inc</p>
-        </footer>
+        
       </div>
     </div>
   );

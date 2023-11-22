@@ -34,18 +34,18 @@ const Header = ({ homePageActive }: HeaderProps) => {
                       : "nav-link active"
                   }
                   aria-current="page"
-                  href="#"
+                  href="/"
                 >
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link a-style" href="#">
+                <a className="nav-link a-style" href="/carriers">
                   Carriers
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link a-style" href="#">
+                <a className="nav-link a-style" href="/book">
                   Book tickets
                 </a>
               </li>

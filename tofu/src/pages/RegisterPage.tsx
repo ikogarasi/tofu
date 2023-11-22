@@ -38,29 +38,6 @@ export const RegisterPage = () => {
 
     return(
      <><div>
-            <header className="bgImage">
-                <nav className="navbar navbar-expand-lg navbar-dark">
-                    <div className="container-fluid">
-                        <a className="navbar-brand mb-0" style={{fontSize: '30px', fontWeight: 'bold'}} href="#">Tofu</a>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNav">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="header-link nav-item mb-0">
-                                    <a className="nav-link " aria-current="page" href="/">Home</a>
-                                </li>
-                                <li className="header-link nav-item">
-                                    <a className=" nav-link" href="#">Carriers</a>
-                                </li>
-                                <li className="header-link nav-item">
-                                    <a className="nav-link" href="#">Book tickets</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </header>
 
             <div className="container py-4">
                 <div className="row g-0 align-items-center">
@@ -145,16 +122,7 @@ export const RegisterPage = () => {
             </div>
         </div>
         <div className="container">
-                <footer className="py-3 my-4">
-                    <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Home</a></li>
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Carriers</a></li>
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Book tickets</a></li>
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">FAQs</a></li>
-                        <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">About</a></li>
-                    </ul>
-                    <p className="text-center text-muted">© 2023 Tofu Company, Inc</p>
-                </footer>
+               
             </div></>
     );
 }
