@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import "./homepage.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Dropdown } from "react-bootstrap";
-import Geocode from "react-geocode";
+import { useAppDispatch } from "../store/hooks";
+import { useNavigate } from "react-router-dom";
+import { Connection, setConnection } from "../store/slices/connectionSliceHomePage";
 
 export const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -11,8 +13,25 @@ export const HomePage = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [isDropdownVisible1, setIsDropdownVisible1] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date(98, 0));
+  const [passengersAmount, setPassengersAmount] = useState<number>(0);
   const today = new Date().toISOString().slice(0, 16);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onSearchClick = () => {
+    const connection: Connection = {
+      from: searchTerm,
+      to: searchTerm1,
+      departureDate: startDate,
+      passengersAmount: passengersAmount,
+    };
+
+    dispatch(setConnection(connection));
+
+    navigate("/search-page");
+  };
+
 
   const handleInputChange = (inputText: string, inputNumber: number) => {
     // Шукаємо міста, що починаються з введених букв
@@ -207,6 +226,9 @@ export const HomePage = () => {
                 </span>
                 <input
                   type="text"
+                  onChange={(event) => {
+                    setPassengersAmount(Number(event.target.value));
+                  }}
                   className="form-control"
                   placeholder="1 Adult"
                   aria-label="1 Adult"

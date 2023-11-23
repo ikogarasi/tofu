@@ -3,18 +3,26 @@ import { useState } from 'react';
 import './registerpage.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import validator from 'validator';
+import { useNavigate } from 'react-router-dom';
 
 export const RegisterPage = () => {
+
+    const [input, setInput] = useState({
+        email: '',
+        password: '',
+        numberPhone: '',
+        firstName: '',
+        lastName: ''
+      })
     
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [numberPhone, setNumberPhone] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  
   const [isValid, setIsValid] = useState(true);
   const [submitted, setSubmitted] = useState(false);
-  const isValidPhoneNumber = validator.isMobilePhone(numberPhone);
-  const isValidPassword = validator.isStrongPassword(password);
+
+  const isValidPhoneNumber = validator.isMobilePhone(input.numberPhone);
+  const isValidPassword = validator.isStrongPassword(input.password);
+
+  const navigate = useNavigate();
 
   const isValidName = (name: string): boolean => {
     if(name.length < 2) {
@@ -27,13 +35,16 @@ export const RegisterPage = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
-    const isValidEmail = validator.isEmail(email);
+    const isValidEmail = validator.isEmail(input.email);
     if ( !isValidEmail) {
       setIsValid(false);
       return;
     } else {
       setIsValid(true);
+      localStorage.setItem('user', JSON.stringify(input));
+      navigate('/signIn')
     }
+    
   };
 
     return(
@@ -50,9 +61,11 @@ export const RegisterPage = () => {
                                     <div className="row">
                                         <div className="col-md-6 mb-4">
                                             <div className="form-outline">
-                                                <input type="text" id="form3Example1" className={isValidName(firstName) ? "form-control is-valid" : "form-control is-invalid"}
-                                                value={firstName}
-                                                onChange={(e) => setFirstName(e.target.value)}
+                                                <input type="text" id="form3Example1" className={isValidName(input.firstName) ? "form-control is-valid" : "form-control is-invalid"}
+                                                value={input.firstName}
+                                                onChange={(e) => setInput({
+                                                    ...input,
+                                                    firstName: e.target.value,})}
                                                 required />
                                                 <label className="form-label" >First name</label>
                                                 <div className="invalid-feedback">Будь ласка, введіть коректну електронну пошту.</div>
@@ -60,9 +73,11 @@ export const RegisterPage = () => {
                                         </div>
                                         <div className="col-md-6 mb-4">
                                             <div className="form-outline">
-                                                <input type="text" id="form3Example2" className={ isValidName(lastName) ? "form-control is-valid" : "form-control is-invalid"}
-                                                value={lastName}
-                                                onChange={(e) => setLastName(e.target.value)}
+                                                <input type="text" id="form3Example2" className={ isValidName(input.lastName) ? "form-control is-valid" : "form-control is-invalid"}
+                                                value={input.lastName}
+                                                onChange={(e) => setInput({
+                                                    ...input,
+                                                    lastName: e.target.value,})}
                                                 required />
                                                 <label className="form-label" >Last name</label>
                                                 <div className="invalid-feedback">Будь ласка, введіть коректну електронну пошту.</div>
@@ -73,8 +88,10 @@ export const RegisterPage = () => {
 
                                     <div className="form-outline mb-4">
                                         <input type="email" id="form3Example3" className="form-control" 
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        value={input.email}
+                                        onChange={(e) => setInput({
+                                            ...input,
+                                            email: e.target.value,})}
                                         required/>
                                         <label className="form-label" >Email address</label>
                                         <div className="invalid-feedback">Будь ласка, введіть коректну електронну пошту.</div>
@@ -82,8 +99,10 @@ export const RegisterPage = () => {
 
                                     <div className="form-outline mb-4">
                                         <input type="text" id="phone" className={isValidPhoneNumber ? "form-control is-valid" : "form-control is-invalid"} data-mdb-input-mask="+48 999-999-999" 
-                                        value={numberPhone}
-                                        onChange={(e) => setNumberPhone(e.target.value)}
+                                        value={input.numberPhone}
+                                        onChange={(e) => setInput({
+                                            ...input,
+                                            numberPhone: e.target.value,})}
                                         required/>
                                         <label className="form-label" >Phone number with country code</label>
                                      <div className='invalid-feedback'>Будь ласка, введіть коректний номер телефону.</div>
@@ -92,8 +111,10 @@ export const RegisterPage = () => {
 
                                     <div className="form-outline mb-4">
                                         <input type="password" id="form3Example4" className={isValidPassword ? "form-control is-valid" : "form-control is-invalid"}
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={input.password}
+                                        onChange={(e) => setInput({
+                                            ...input,
+                                            password: e.target.value,})}
                                         required />
                                         <label className="form-label">Password</label>
                                         <div className="invalid-feedback">Будь ласка, введіть складніший пароль.</div>

@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import './signin.css';
 import  pathPhoto  from './../images/girl.jpg';
+import { useNavigate } from 'react-router-dom';
 
 export const Signin = () => {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [isValid, setIsValid] = useState(true);
-  const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
+
+  const [input, setInput] = useState({
+    email: '',
+    password: ''
+  })
 
   const validateEmail = (email: string): boolean => {
     // Регулярний вираз для перевірки правильності написання електронної пошти
@@ -16,18 +20,20 @@ export const Signin = () => {
   };
 
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
-    setSubmitted(true);
+    const loggedUser = JSON.parse(localStorage.getItem('user'));
 
-    if (!validateEmail(email) && password.length === 0 && password.length > 8) {
-      setIsValid(false);
+    if (input.email === loggedUser.email && input.password === loggedUser.password) {
+      setIsValid(true);
+      console.log('good');
+      navigate('/');
       return;
     } else {
-      setIsValid(true);
+      setIsValid(false);
     }
 
-    console.log('Електронна пошта вірна:', email);
+    console.log('Електронна пошта вірна:', input.email);
   };
 
     return(
@@ -45,7 +51,7 @@ export const Signin = () => {
                           <div className="col-md-6 col-lg-7 d-flex align-items-center">
                             <div className="card-body p-4 p-lg-5 text-black">
               
-                              <form onSubmit={handleSubmit} className={submitted && isValid ? 'was-validated' : ''}>
+                              <form onSubmit={handleLogin} className={isValid ? 'was-validated' : ''}>
               
                                 <div className="d-flex align-items-center mb-3 pb-1">
                                   <span className="h1 fw-bold mb-0">Tofu</span>
@@ -55,23 +61,27 @@ export const Signin = () => {
               
                                 <div className="form-outline mb-4">
                                   <input type="email" id="emailInput" className="form-control form-control-lg"
-                                  value={email}
-                                  onChange={(e) => setEmail(e.target.value)}
+                                  value={input.email}
+                                  onChange={(e) => setInput({
+                                    ...input,
+                                    email: e.target.value,})}
                                   required />
                                   <label className="form-label" >Email address</label>
                                   <div className="invalid-feedback">Будь ласка, введіть коректну електронну пошту.</div>
                                 </div>
                                 <div className="form-outline mb-4">
                                   <input type="password" id="passwordInput" className="form-control form-control-lg"
-                                  value={password}
-                                  onChange={(e) => setPassword(e.target.value)}
+                                  value={input.password}
+                                  onChange={(e) => setInput({
+                                    ...input,
+                                    password: e.target.value,})}
                                   required />
                                   <label className="form-label" >Password</label>
                                   <div className="invalid-feedback">Будь ласка, введіть пароль.</div>
                                 </div>
               
                                 <div className="pt-1 mb-4">
-                                  <button className="btn btn-dark btn-lg btn-block" id="loginButton" onClick={() => setSubmitted(true)} type="button">Login</button>
+                                  <button className="btn btn-dark btn-lg btn-block" id="loginButton" type='submit'>Login</button>
                                 </div>
               
                                 <a className="small text-muted" href="#!">Forgot password?</a>
