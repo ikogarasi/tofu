@@ -43,7 +43,7 @@ const AdminPage = () => {
     { targetName: "addtrip", presentation: <AddTrip /> },
     {
       targetName: "reviewalltrips",
-      presentation: <ReviewTrips trips={trips} />,
+      presentation: <ReviewTrips />,
     },
   ];
 

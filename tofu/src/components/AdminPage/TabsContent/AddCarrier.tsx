@@ -1,4 +1,6 @@
 import { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addCarrier } from "../../../store/slices/carriersSlice";
 
 const AddCarrier = () => {
   const [carriersName, setCarriersName] = useState<string>();
@@ -6,6 +8,8 @@ const AddCarrier = () => {
   const [image, setImage] = useState<string | ArrayBuffer>();
 
   const [validCarrierName, setValidCarrierName] = useState<boolean>(true);
+
+  const dispatch = useDispatch();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
@@ -28,6 +32,13 @@ const AddCarrier = () => {
       setValidCarrierName(false);
     } else {
       setValidCarrierName(true);
+      dispatch(
+        addCarrier({
+          name: carriersName,
+          description: description,
+          image: image,
+        })
+      );
     }
     console.log("ff");
   };

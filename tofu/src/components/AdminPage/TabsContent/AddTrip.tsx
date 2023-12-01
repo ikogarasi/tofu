@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import { useAppDispatch } from "../../../store/hooks";
+import { addTicket } from "../../../store/slices/ticketsSlice";
 
 const cities: string[] = [
   "Київ",
@@ -25,11 +27,11 @@ interface ValidFields {
 }
 
 const AddTrip = () => {
-  const [routeBeginName, setRouteBeginName] = useState<string>();
-  const [routeEndName, setRouteEndName] = useState<string>();
+  const [routeBeginName, setRouteBeginName] = useState<string>("");
+  const [routeEndName, setRouteEndName] = useState<string>("");
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date(98, 0));
-  const [carrierName, setCarrierName] = useState<string>();
+  const [carrierName, setCarrierName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
 
@@ -54,6 +56,8 @@ const AddTrip = () => {
   });
 
   const today = new Date().toISOString().slice(0, 16);
+
+  const dispatch = useAppDispatch();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -99,7 +103,21 @@ const AddTrip = () => {
       fields.endDate = false;
     }
 
-    setValid(fields);
+    if (Object.values(fields).indexOf(false) >= 0) {
+      setValid(fields);
+    } else {
+      dispatch(
+        addTicket({
+          from: routeBeginName,
+          to: routeEndName,
+          startDate: startDate,
+          endDate: endDate,
+          carriersName: carrierName,
+          price: price,
+          amount: count,
+        })
+      );
+    }
   };
 
   const handleCitiesInputChange = (inputText: string) => {
