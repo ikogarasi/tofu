@@ -21,6 +21,18 @@ export const connectionSlice = createSlice({
     setConnection(state, action: PayloadAction<Connection>) {
       state = action.payload;
     },
+    setNewDepartureDate(state, action: PayloadAction<Date>) {
+      state.departureDate = action.payload;
+    },
+    setNewFromPoint(state, action: PayloadAction<string>) {
+      state.from = action.payload;
+    },
+    setNewToPoint(state, action: PayloadAction<string>) {
+      state.to = action.payload;
+    },
+    setNewPassengersAmount(state, action: PayloadAction<number>) {
+      state.passengersAmount = action.payload;
+    },
     cleanConnection(state) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       state = initialState;
@@ -28,6 +40,13 @@ export const connectionSlice = createSlice({
   },
 });
 
-export const { setConnection, cleanConnection } = connectionSlice.actions;
+export const {
+  setNewDepartureDate,
+  setNewFromPoint,
+  setNewToPoint,
+  setNewPassengersAmount,
+  setConnection,
+  cleanConnection,
+} = connectionSlice.actions;
 
 export default connectionSlice.reducer;
