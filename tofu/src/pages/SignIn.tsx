@@ -22,11 +22,11 @@ export const Signin = () => {
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
-    const loggedUser = JSON.parse(localStorage.getItem('user'));
+    const loggedUser = JSON.parse(localStorage.getItem('user') || '');
 
     if (input.email === loggedUser.email && input.password === loggedUser.password) {
       setIsValid(true);
-      console.log('good');
+      localStorage.setItem('loggedIn', 'true');
       navigate('/');
       return;
     } else {

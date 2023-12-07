@@ -2,36 +2,39 @@ import { useEffect, useState } from "react";
 import "./homepage.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Dropdown } from "react-bootstrap";
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { Connection, setConnection } from "../store/slices/connectionSliceHomePage";
 
 export const HomePage = () => {
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [searchTerm1, setSearchTerm1] = useState<string>("");
+  const connection = useAppSelector((state) => state.connection);
+  const [searchTerm, setSearchTerm] = useState<string>(connection.from);
+  const [searchTerm1, setSearchTerm1] = useState<string>(connection.to);
   const [matchingCities, setMatchingCities] = useState<string[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [isDropdownVisible1, setIsDropdownVisible1] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [passengersAmount, setPassengersAmount] = useState<number>(0);
+  const [startDate, setStartDate] = useState<Date>(new Date(connection.departureDate));
+  const [passengersAmount, setPassengersAmount] = useState<number>(connection.passengersAmount);
   const today = new Date().toISOString().slice(0, 16);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const userName = JSON.parse(localStorage.getItem('user') || '');
+  const loggedIn = JSON.parse(localStorage.getItem('loggedIn') || '');
+
   const onSearchClick = () => {
     const connection: Connection = {
       from: searchTerm,
       to: searchTerm1,
-      departureDate: startDate,
+      departureDate: startDate.toISOString(),
       passengersAmount: passengersAmount,
     };
-
     dispatch(setConnection(connection));
 
-    navigate("/search-page");
+    //navigate("/search-page");
   };
-
+  console.log(loggedIn)
 
   const handleInputChange = (inputText: string, inputNumber: number) => {
     // Шукаємо міста, що починаються з введених букв
@@ -79,6 +82,11 @@ export const HomePage = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.setItem('loggedIn', 'false');
+    navigate('/');
+  }
+
   return (
     <div>
       <div className="bg-image">
@@ -116,6 +124,18 @@ export const HomePage = () => {
                   </a>
                 </li>
               </ul>
+              {JSON.parse(loggedIn) === true ? (
+              <>
+              <h5 className="header-link" style={{color: 'white', marginRight: 20}}>Hi {userName.firstName}!</h5>
+              <a
+                type="button"
+                className="button-sign-in btn btn-outline-light"
+                onClick={handleLogout}
+              >
+                Log out
+              </a>
+              </>
+              ) : (
               <a
                 type="button"
                 className="button-sign-in btn btn-outline-light"
@@ -123,6 +143,7 @@ export const HomePage = () => {
               >
                 Sign in
               </a>
+              )}
             </div>
           </div>
         </nav>
@@ -233,7 +254,7 @@ export const HomePage = () => {
                   placeholder="1 Adult"
                   aria-label="1 Adult"
                 />
-                <button type="button" className="btn btn-primary">
+                <button type="button" onClick={onSearchClick} className="btn btn-primary">
                   Search
                 </button>
               </div>
