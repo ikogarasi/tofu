@@ -1,12 +1,12 @@
-﻿using JWTWebApiAuth.dto;
-using JWTWebApiAuth.Infrastructure;
-using JWTWebApiAuth.models;
+﻿using TofuApi.dto;
+using TofuApi.Infrastructure;
+using TofuApi.models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace JWTWebApiAuth.Controllers
+namespace TofuApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

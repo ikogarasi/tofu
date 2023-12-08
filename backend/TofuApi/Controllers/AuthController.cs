@@ -1,6 +1,6 @@
-﻿using JWTWebApiAuth.dto;
-using JWTWebApiAuth.Infrastructure;
-using JWTWebApiAuth.models;
+﻿using TofuApi.dto;
+using TofuApi.Infrastructure;
+using TofuApi.models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 
-namespace JWTWebApiAuth.Controllers
+namespace TofuApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -24,8 +24,9 @@ namespace JWTWebApiAuth.Controllers
             _context = context;
         }
 
-        [HttpPost("register")]
-        public async Task<ActionResult> Register(RegisterDto request)
+        [HttpPost("Register")]
+        [ProducesResponseType(typeof(void), 200)]
+        public async Task<ActionResult> Register([FromBody] RegisterDto request)
         {
             CreatePasswordHash(request.UserPassword, out byte[] passwordHash, out byte[] passwordSalt);
 
@@ -43,11 +44,11 @@ namespace JWTWebApiAuth.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
-
         }
 
-        [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(LoginDto request)
+        [HttpPost("Login")]
+        [ProducesResponseType(typeof(string), 200)]
+        public async Task<ActionResult<string>> Login([FromBody] LoginDto request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(i => i.UserEmail == request.UserEmail);
 
@@ -87,7 +88,7 @@ namespace JWTWebApiAuth.Controllers
             return jwt;
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt )
+        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using( var hmac = new HMACSHA512())
             {
@@ -97,7 +98,7 @@ namespace JWTWebApiAuth.Controllers
             }
         }
 
-        private bool VerifyPasswordHash(string password, byte[] passwordSalt, byte[] passwordHash)
+        private static bool VerifyPasswordHash(string password, byte[] passwordSalt, byte[] passwordHash)
         {
             using (var hmac = new HMACSHA512(passwordSalt))
             {

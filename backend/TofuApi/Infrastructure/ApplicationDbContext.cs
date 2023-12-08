@@ -1,7 +1,7 @@
-﻿using JWTWebApiAuth.models;
+﻿using TofuApi.models;
 using Microsoft.EntityFrameworkCore;
 
-namespace JWTWebApiAuth.Infrastructure
+namespace TofuApi.Infrastructure
 {
     public class ApplicationDbContext : DbContext
     {

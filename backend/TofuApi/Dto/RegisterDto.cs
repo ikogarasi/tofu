@@ -1,4 +1,4 @@
-﻿namespace JWTWebApiAuth.dto
+﻿namespace TofuApi.dto
 {
     public class RegisterDto
     {

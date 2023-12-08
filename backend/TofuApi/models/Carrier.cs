@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace JWTWebApiAuth.models
+namespace TofuApi.models
 {
     public class Carrier
     {

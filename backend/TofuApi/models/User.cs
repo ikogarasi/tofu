@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JWTWebApiAuth.models
+namespace TofuApi.models
 {
     public class User
     {
