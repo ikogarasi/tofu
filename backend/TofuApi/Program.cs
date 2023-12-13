@@ -1,5 +1,6 @@
 using TofuApi.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using TofuApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +11,9 @@ builder.Services.AddOpenApiDocument(config =>
     config.Title = "Tofu Api";
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("defaultConnection"), new MySqlServerVersion(new Version(8, 0))));
 
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("defaultConnection"), new MySqlServerVersion(new Version(8, 0))));
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 var app = builder.Build();
 
 app.UseOpenApi();

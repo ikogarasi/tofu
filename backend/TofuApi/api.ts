@@ -258,7 +258,7 @@ export interface Carrier {
     id: number;
     title: string;
     description: string;
-    image: string;
+    image?: string | null;
 }
 
 export interface CarrierDto {

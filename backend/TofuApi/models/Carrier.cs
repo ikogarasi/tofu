@@ -15,6 +15,6 @@ namespace TofuApi.models
 
         [Column(TypeName = "LONGBLOB")]
         [MaxLength]
-        public byte[] Image { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

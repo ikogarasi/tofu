@@ -15,5 +15,6 @@ namespace TofuApi.Infrastructure
 
         public DbSet<User> Users { get; set; }
         public DbSet<Carrier> Carriers { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
     }
 }
