@@ -1,7 +1,6 @@
 import { InputAdornment, TextField } from "@mui/material";
 import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import SwapHorizOutlinedIcon from "@mui/icons-material/SwapHorizOutlined";
-import { useState } from "react";
 import classes from "./DirectionSelector.module.css";
 interface directionSelector {
   from: string;

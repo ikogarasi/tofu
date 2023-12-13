@@ -24,7 +24,7 @@ export const connectionSlice = createSlice({
       console.log(state);
     },
     setNewDepartureDate(state, action: PayloadAction<Date>) {
-      state.departureDate = action.payload;
+      state.departureDate = action.payload.toISOString().slice(0, 16);
     },
     setNewFromPoint(state, action: PayloadAction<string>) {
       state.from = action.payload;

@@ -23,7 +23,6 @@ import {
   setNewPassengersAmount,
   setNewToPoint,
 } from "../store/slices/connectionSliceHomePage";
-import { useEffect, useState } from "react";
 
 const SearchPage = () => {
   const dispatch = useAppDispatch();
@@ -34,12 +33,13 @@ const SearchPage = () => {
 
   const tickets: Ticket[] = useAppSelector((state: RootState) => {
     return state.tickets.filter((element: Ticket) => {
+      console.log(element)
       return (
         element.from == connection.from &&
         element.to == connection.to &&
         element.amount == connection.passengersAmount &&
-        element.startDate.toLocaleDateString("en-US") ==
-          connection.departureDate.toLocaleDateString("en-US")
+        element.startDate.toISOString().slice(0, 10) ==
+          connection.departureDate.slice(0, 10)
       );
     });
   });
@@ -66,7 +66,7 @@ const SearchPage = () => {
   const clickOnPrevDate = () => {
     dispatch(
       setNewDepartureDate(
-        new Date(connection.departureDate.getTime() - 86400000)
+        new Date(new Date(connection.departureDate).getTime() - 86400000)
       )
     );
   };
@@ -74,7 +74,7 @@ const SearchPage = () => {
   const clickOnNextDate = () => {
     dispatch(
       setNewDepartureDate(
-        new Date(connection.departureDate.getTime() + 86400000)
+        new Date(new Date(connection.departureDate).getTime() + 86400000)
       )
     );
   };
@@ -148,14 +148,14 @@ const SearchPage = () => {
             <div className={classes["date-selector"]} onClick={clickOnPrevDate}>
               <h3 className={classes["date-title"]}>
                 {new Date(
-                  connection.departureDate.getTime() - 86400000
-                ).toLocaleDateString("en-US")}
+                  new Date(connection.departureDate).getTime() - 86400000
+                ).toISOString().slice(0, 10)}
               </h3>
             </div>
 
             <div className={classes["date-selector"]}>
               <h3 className={classes["date-title"]}>
-                {connection.departureDate.toLocaleDateString("en-US")}
+                {connection.departureDate.slice(0, 10)}
               </h3>
               <div className={classes["date-selected"]}></div>
             </div>
@@ -163,8 +163,8 @@ const SearchPage = () => {
             <div className={classes["date-selector"]} onClick={clickOnNextDate}>
               <h3 className={classes["date-title"]}>
                 {new Date(
-                  connection.departureDate.getTime() + 86400000
-                ).toLocaleDateString("en-US")}
+                  new Date(connection.departureDate).getTime() + 86400000
+                ).toISOString().slice(0, 10)}
               </h3>
             </div>
           </div>
