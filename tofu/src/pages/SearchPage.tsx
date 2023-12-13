@@ -23,29 +23,35 @@ import {
   setNewPassengersAmount,
   setNewToPoint,
 } from "../store/slices/connectionSliceHomePage";
+import { useActionData, useSubmit } from "react-router-dom";
+import { ticketApi } from "../services/TicketService";
+
+export interface ITicket {
+  from: string;
+  to: string;
+  startDate: Date;
+  passangersAmount: number;
+}
 
 const SearchPage = () => {
+  const actionData = useActionData();
+  const submit = useSubmit();
   const dispatch = useAppDispatch();
-
+  const [fetchTickets, { data: tickets }] =
+    ticketApi.useFetchAllTicketsMutation();
+  console.log(tickets);
   const connection: Connection = useAppSelector((state: RootState) => {
     return state.connection;
   });
 
-  const tickets: Ticket[] = useAppSelector((state: RootState) => {
-    return state.tickets.filter((element: Ticket) => {
-      console.log(element)
-      return (
-        element.from == connection.from &&
-        element.to == connection.to &&
-        element.amount == connection.passengersAmount &&
-        element.startDate.toISOString().slice(0, 10) ==
-          connection.departureDate.slice(0, 10)
-      );
-    });
-  });
-
   const onChangePassengersCount = (event: any) => {
     dispatch(setNewPassengersAmount(event.target.value));
+    fetchTickets({
+      from: connection.from,
+      to: connection.to,
+      passangersAmount: event.target.value,
+      startDate: new Date("2023-12-13"),
+    });
   };
 
   const onChangeFromPoint = (event: any) => {
@@ -149,7 +155,9 @@ const SearchPage = () => {
               <h3 className={classes["date-title"]}>
                 {new Date(
                   new Date(connection.departureDate).getTime() - 86400000
-                ).toISOString().slice(0, 10)}
+                )
+                  .toISOString()
+                  .slice(0, 10)}
               </h3>
             </div>
 
@@ -164,7 +172,9 @@ const SearchPage = () => {
               <h3 className={classes["date-title"]}>
                 {new Date(
                   new Date(connection.departureDate).getTime() + 86400000
-                ).toISOString().slice(0, 10)}
+                )
+                  .toISOString()
+                  .slice(0, 10)}
               </h3>
             </div>
           </div>
@@ -193,3 +203,24 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
+
+export async function action({ request }: { request: Request }) {
+  const formData = await request.formData();
+
+  const response = await fetch("https://localhost:7128/api/Ticket", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: formData.get("from"),
+      to: formData.get("to"),
+      passangersAmount: formData.get("passengersAmount"),
+      startDate: new Date("2023-12-13"),
+    }),
+  });
+
+  const resData = response.json();
+
+  return resData;
+}

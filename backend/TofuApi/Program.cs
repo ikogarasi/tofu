@@ -20,6 +20,10 @@ app.UseOpenApi();
 app.UseSwaggerUi3();
 
 app.UseHttpsRedirection();
+app.UseCors(builder => builder.AllowAnyOrigin()
+     .AllowAnyMethod()
+     .AllowAnyHeader());
+
 
 app.UseAuthorization();
 

@@ -8,16 +8,18 @@ interface ResCard {
 }
 
 const ResultCard = ({ ticket }: ResCard) => {
+
+
   return (
     <div className={classes["result-set"]}>
       <div className={classes["short-information"]}>
         <div className={classes["date-section"]}>
           <p className={classes["time"]}>
-            {ticket.startDate.getHours()}:{ticket.startDate.getMinutes()}
+            {new Date(ticket.startDate).getHours()}:{new Date(ticket.startDate).getMinutes()}
           </p>
           <div className={classes["line-between"]}></div>
           <p className={classes["time"]}>
-            {ticket.endDate.getHours()}:{ticket.endDate.getMinutes()}
+            {new Date(ticket.endDate).getHours()}:{new Date(ticket.endDate).getMinutes()}
           </p>
         </div>
 
@@ -30,7 +32,7 @@ const ResultCard = ({ ticket }: ResCard) => {
 
       <div className={classes["short-information-s"]}>
         <p>
-          {ticket.endDate.getHours()}:{ticket.endDate.getMinutes()} <br />
+        {new Date(ticket.endDate).getHours()}:{new Date(ticket.endDate).getMinutes()} <br />
           {ticket.to}
         </p>
       </div>
