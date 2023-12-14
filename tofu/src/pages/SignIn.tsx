@@ -2,11 +2,18 @@ import { useState } from 'react';
 import './signin.css';
 import  pathPhoto  from './../images/girl.jpg';
 import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../services/authApi';
+import { setCookies } from '../helpers/setCookies';
+import { jwtParseToken } from '../helpers/jwtParseToken';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/slices/userSlice';
 
 export const Signin = () => {
 
   const [isValid, setIsValid] = useState(true);
+  const [login] = useLoginMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [submitted, isSumbitted] = useState(false);
 
   const [input, setInput] = useState({
@@ -17,19 +24,23 @@ export const Signin = () => {
  
 
 
-  const handleLogin = (event: React.FormEvent) => {
+  const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    const loggedUser = JSON.parse(localStorage.getItem('user') || '');
+
     if(submitted){
-      if (input.email === loggedUser.email && input.password === loggedUser.password) {
-        setIsValid(true);
-        localStorage.setItem('loggedIn', 'true');
-        navigate('/');
-        return;
-      } else {
-        setIsValid(false);
-      }
-  
+        try {
+          const token = await login({userEmail: input.email, userPassword: input.password}).unwrap();
+
+          setCookies("API_TOKEN", token, 1);
+
+          const userData = jwtParseToken();
+          dispatch(setUser(userData));
+
+          navigate('/');
+        }
+        catch {
+
+        }
     }
 
     console.log('Електронна пошта вірна:', input.email);

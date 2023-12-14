@@ -10,8 +10,25 @@ import { HomePage } from "./pages/HomePage";
 import AdminPage from "./components/AdminPage/AdminPage";
 import BookingPage from "./components/BookingPage/BookingPage";
 import { InfoAllCarriers } from "./pages/InfoAllCarriers";
+import { useAppDispatch } from "./store/hooks";
+import { getCookie } from "./helpers/getCookie";
+import { UserData, setUser } from "./store/slices/userSlice";
+import { jwtParseToken } from "./helpers/jwtParseToken";
+
+export const useAuthentication = () => {
+  const dispatch = useAppDispatch();
+  const token = getCookie("API_TOKEN");
+
+  if (token) {
+    const userData: UserData = jwtParseToken();
+
+    dispatch(setUser(userData));
+  }
+};
 
 function App() {
+  useAuthentication();
+
   const router = createBrowserRouter([
     {
       path: "/",

@@ -19,6 +19,7 @@ export const HomePage = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isAuthenticated = useAppSelector(state => state.user.isAuthenticated);
 
   const userName = JSON.parse(localStorage.getItem('user') || '');
   const loggedIn = JSON.parse(localStorage.getItem('loggedIn') || '');
@@ -124,7 +125,7 @@ export const HomePage = () => {
                   </a>
                 </li>
               </ul>
-              {JSON.parse(loggedIn) === true ? (
+              {isAuthenticated ? (
               <>
               <h5 className="header-link" style={{color: 'white', marginRight: 20}}>Hi {userName.firstName}!</h5>
               <a

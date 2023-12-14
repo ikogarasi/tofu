@@ -67,7 +67,7 @@ export const RegisterPage = () => {
   }
 
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setSubmitted(true);
     if ( !isValidEmail ) {
@@ -75,8 +75,13 @@ export const RegisterPage = () => {
       return;
     } else {
       setIsValid(true);
-      register({userEmail: input.email, userPassword: input.password, name: input.firstName, surname: input.lastName, phoneNumber: input.numberPhone})
-      navigate('/signIn')
+      try {
+          await register({userEmail: input.email, userPassword: input.password, name: input.firstName, surname: input.lastName, phoneNumber: input.numberPhone})
+          navigate('/signIn')
+      }
+      catch {
+        console.log("pohano")
+      }
     }
     
   };
@@ -89,7 +94,7 @@ export const RegisterPage = () => {
                         <div className="card-boy card cascading-right">
                             <div className="card-body p-5 shadow-5 text-center">
                                 <h2 className="fw-bold mb-5">Sign up now</h2>
-                                <form className={submitted ? 'was-validated' : ''}>
+                                <form className={submitted ? 'was-validated' : ''} onSubmit={handleSubmit}>
                                     <div className="row">
                                         <div className="col-md-6 mb-4">
                                             <div className="form-outline">
