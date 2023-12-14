@@ -1,19 +1,21 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import ticketsSlice from "./slices/ticketsSlice";
+import { configureStore } from "@reduxjs/toolkit";
 import connectionSliceHomePage from "./slices/connectionSliceHomePage";
-import carriersSlice from "./slices/carriersSlice";
-import { ticketApi } from "../services/TicketService";
+import { ticketApi } from "../services/ticketApi";
+import carrierApi from "../services/carrierApi";
+import authApi from "../services/authApi";
 
 export const store = configureStore({
   reducer: {
     [ticketApi.reducerPath]: ticketApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [carrierApi.reducerPath]: carrierApi.reducer,
     connection: connectionSliceHomePage,
-    tickets: ticketsSlice,
-    carriers: carriersSlice,
   },
   middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware()
-    .concat(ticketApi.middleware)
+    getDefaultMiddleware()
+      .concat(ticketApi.middleware)
+      .concat(carrierApi.middleware)
+      .concat(authApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

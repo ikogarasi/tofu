@@ -1,7 +1,10 @@
-﻿namespace TofuApi.models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TofuApi.models
 {
     public class Ticket
     {
+        [Key]
         public int Id { get; set; }
         public string From { get; set; }
         public string To { get; set; }

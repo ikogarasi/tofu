@@ -20,6 +20,7 @@ namespace TofuApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Carrier>), 200)]
         public async Task<ActionResult<IEnumerable<Carrier>>> GetCarriers()
         {
             var l = await _context.Carriers.ToListAsync();
@@ -27,12 +28,14 @@ namespace TofuApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Carrier), 200)]
         public async Task<ActionResult<Carrier?>> GetCarrierById(int id)
         {
             return await _context.Carriers.FirstOrDefaultAsync(i => i.Id == id);
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(Carrier), 200)]
         public async Task<ActionResult<Carrier>> AddCarrier([FromForm]CarrierDto request)
         {
             var carrier = new Carrier()

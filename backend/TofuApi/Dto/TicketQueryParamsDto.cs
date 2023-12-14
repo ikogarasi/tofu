@@ -1,6 +1,6 @@
 ﻿namespace TofuApi.Dto
 {
-    public class TicketDTO
+    public class TicketQueryParamsDto
     {
         public string From { get; set; }
         public string To { get; set; }
