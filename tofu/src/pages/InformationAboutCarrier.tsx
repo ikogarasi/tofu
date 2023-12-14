@@ -3,6 +3,13 @@ import FlixBus from "../images/FlixBus.jpg";
 import { TextField, Rating, Button } from "@mui/material";
 import { useState } from "react";
 
+export interface Comment {
+  email: string,
+  date: string,
+  commentText: string,
+  rate: number,
+}
+
 const InformationAboutCarrier = () => {
   const [rating, setRating] = useState(0);
 

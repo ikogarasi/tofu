@@ -14,6 +14,7 @@ builder.Services.AddOpenApiDocument(config =>
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("defaultConnection"), new MySqlServerVersion(new Version(8, 0))));
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 var app = builder.Build();
 
 app.UseOpenApi();

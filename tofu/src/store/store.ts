@@ -4,6 +4,9 @@ import { ticketApi } from "../services/ticketApi";
 import carrierApi from "../services/carrierApi";
 import authApi from "../services/authApi";
 import userSlice from "./slices/userSlice";
+import { ticketClient } from "./clients";
+import carriersSlice from "./slices/carriersSlice";
+import ticketsSlice from "./slices/ticketsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +14,8 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [carrierApi.reducerPath]: carrierApi.reducer,
     connection: connectionSliceHomePage,
+    tickets: ticketsSlice,
+    carriers: carriersSlice,
     user: userSlice
   },
   middleware: (getDefaultMiddleware) =>

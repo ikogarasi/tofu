@@ -10,9 +10,8 @@ export const InfoAllCarriers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [carrierPerPage] = useState(3);
   const [carrierList, setCarriersList] = useState(infoCarriers);
-  const [totalPages, setTotalPages] = useState(
-    Math.ceil(carrierList.length / 3) ?? 1
-  );
+  //const [totalPages, setTotalPages] = useState(
+    //Math.ceil(carrierList.length / 3) ?? 1);
 
   const handleSearch = () => {
     setCurrentPage(1);
@@ -69,9 +68,8 @@ export const InfoAllCarriers = () => {
             </div>
           </div>
         </div>
-        {carrierList &&
-          carrierList?.length > 0 &&
-          carrierList?.map((carrier) => {
+        {
+          infoCarriers?.map((carrier) => {
             return (
               <div className="d-block ">
                 <div className="m-5 mb-0 mt-1 rounded-3">
@@ -110,13 +108,13 @@ export const InfoAllCarriers = () => {
         {carrierList && carrierList.length === 0 && (
           <div className="notFound">No carrier found</div>
         )}
-        {totalPages > 1 && (
+        {/*totalPages > 1 && (
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
             paginate={paginate}
           />
-        )}
+        )*/}
       </div>
       <div className="container"></div>
     </>
