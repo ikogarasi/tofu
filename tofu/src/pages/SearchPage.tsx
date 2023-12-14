@@ -13,7 +13,6 @@ import {
 import DirectionSelector from "../components/SearchPage/DirectionSelector";
 import ResultCard from "../components/SearchPage/ResultCard";
 import { RootState } from "../store/store";
-import { Ticket } from "../store/slices/ticketsSlice";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import {
@@ -39,18 +38,18 @@ const SearchPage = () => {
   const dispatch = useAppDispatch();
   const [fetchTickets, { data: tickets }] =
     ticketApi.useFetchAllTicketsMutation();
-  console.log(tickets);
   const connection: Connection = useAppSelector((state: RootState) => {
     return state.connection;
   });
 
   const onChangePassengersCount = (event: any) => {
+
     dispatch(setNewPassengersAmount(event.target.value));
     fetchTickets({
       from: connection.from,
       to: connection.to,
       passangersAmount: event.target.value,
-      startDate: new Date("2023-12-13"),
+      startDate: new Date(connection.departureDate.slice(0, 10)),
     });
   };
 
@@ -62,7 +61,31 @@ const SearchPage = () => {
     dispatch(setNewToPoint(event.target.value));
   };
 
+  const onBlurFromPoint = (event: any) => {
+    fetchTickets({
+      from: event.target.value,
+      to: connection.to,
+      passangersAmount: connection.passengersAmount,
+      startDate: new Date(connection.departureDate.slice(0, 10)),
+    });
+  }
+
+  const onBlurToPoint = (event: any) => {
+    fetchTickets({
+      from: connection.from,
+      to: event.target.value,
+      passangersAmount: connection.passengersAmount,
+      startDate: new Date(connection.departureDate.slice(0, 10)),
+    });
+  }
+
   const onSwap = () => {
+    fetchTickets({
+      from: connection.to,
+      to: connection.from,
+      passangersAmount: connection.passengersAmount,
+      startDate: new Date(connection.departureDate.slice(0, 10)),
+    });
     const from = connection.from;
     const to = connection.to;
     dispatch(setNewFromPoint(to));
@@ -70,6 +93,12 @@ const SearchPage = () => {
   };
 
   const clickOnPrevDate = () => {
+    fetchTickets({
+      from: connection.from,
+      to: connection.to,
+      passangersAmount: connection.passengersAmount,
+      startDate: new Date((new Date(connection.departureDate).getTime() - 86400000)),
+    });
     dispatch(
       setNewDepartureDate(
         new Date(new Date(connection.departureDate).getTime() - 86400000)
@@ -78,6 +107,12 @@ const SearchPage = () => {
   };
 
   const clickOnNextDate = () => {
+    fetchTickets({
+      from: connection.from,
+      to: connection.to,
+      passangersAmount: connection.passengersAmount,
+      startDate: new Date((new Date(connection.departureDate).getTime() + 86400000)),
+    });
     dispatch(
       setNewDepartureDate(
         new Date(new Date(connection.departureDate).getTime() + 86400000)
@@ -112,6 +147,8 @@ const SearchPage = () => {
           <DirectionSelector
             changeFromPoint={onChangeFromPoint}
             changeToPoint={onChangeToPoint}
+            blurFromPoint={onBlurFromPoint}
+            blurToPoint={onBlurToPoint}
             swap={onSwap}
             from={connection.from}
             to={connection.to}

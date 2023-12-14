@@ -7,10 +7,13 @@ interface directionSelector {
   to: string;
   changeFromPoint: (event: any) => void
   changeToPoint: (event: any) => void
+  blurFromPoint: (event: any) => void
+  blurToPoint: (event: any) => void
   swap: () => void
+
 }
 
-const DirectionSelector = ({ from, to , changeFromPoint, changeToPoint, swap}: directionSelector) => {
+const DirectionSelector = ({ from, to , changeFromPoint, changeToPoint, swap, blurFromPoint, blurToPoint}: directionSelector) => {
 
   return (
     <div className={classes["input-destination"]}>
@@ -26,6 +29,7 @@ const DirectionSelector = ({ from, to , changeFromPoint, changeToPoint, swap}: d
           ),
         }}
         onChange={changeFromPoint}
+        onBlur={blurFromPoint}
         variant="outlined"
       />
       <div onClick={swap} className={classes["swap-btn"]}>
@@ -43,6 +47,7 @@ const DirectionSelector = ({ from, to , changeFromPoint, changeToPoint, swap}: d
           ),
         }}
         onChange={changeToPoint}
+        onBlur={blurToPoint}
         variant="outlined"
       />
     </div>
