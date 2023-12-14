@@ -12,18 +12,15 @@ import {
 } from "@mui/material";
 import DirectionSelector from "../components/SearchPage/DirectionSelector";
 import ResultCard from "../components/SearchPage/ResultCard";
-import { RootState } from "../store/store";
-import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import {
-  Connection,
   setNewDepartureDate,
   setNewFromPoint,
   setNewPassengersAmount,
   setNewToPoint,
 } from "../store/slices/connectionSliceHomePage";
-import { useActionData, useSubmit } from "react-router-dom";
-import { ticketApi } from "../services/TicketService";
+import { useFetchAllTicketsByQueryParamsQuery } from "../services/ticketApi";
+import dayjs from "dayjs";
 
 export interface ITicket {
   from: string;
@@ -33,24 +30,18 @@ export interface ITicket {
 }
 
 const SearchPage = () => {
-  const actionData = useActionData();
-  const submit = useSubmit();
   const dispatch = useAppDispatch();
-  const [fetchTickets, { data: tickets }] =
-    ticketApi.useFetchAllTicketsMutation();
-  const connection: Connection = useAppSelector((state: RootState) => {
-    return state.connection;
+  const filters = useAppSelector((state) => state.connection);
+
+  const [{ data: tickets = [] }] = useFetchAllTicketsByQueryParamsQuery({
+    from: filters.from,
+    to: filters.to,
+    startDate: new Date(filters.departureDate),
+    passangersAmount: filters.passengersAmount,
   });
 
   const onChangePassengersCount = (event: any) => {
-
     dispatch(setNewPassengersAmount(event.target.value));
-    fetchTickets({
-      from: connection.from,
-      to: connection.to,
-      passangersAmount: event.target.value,
-      startDate: new Date(connection.departureDate.slice(0, 10)),
-    });
   };
 
   const onChangeFromPoint = (event: any) => {
@@ -61,61 +52,25 @@ const SearchPage = () => {
     dispatch(setNewToPoint(event.target.value));
   };
 
-  const onBlurFromPoint = (event: any) => {
-    fetchTickets({
-      from: event.target.value,
-      to: connection.to,
-      passangersAmount: connection.passengersAmount,
-      startDate: new Date(connection.departureDate.slice(0, 10)),
-    });
-  }
-
-  const onBlurToPoint = (event: any) => {
-    fetchTickets({
-      from: connection.from,
-      to: event.target.value,
-      passangersAmount: connection.passengersAmount,
-      startDate: new Date(connection.departureDate.slice(0, 10)),
-    });
-  }
-
   const onSwap = () => {
-    fetchTickets({
-      from: connection.to,
-      to: connection.from,
-      passangersAmount: connection.passengersAmount,
-      startDate: new Date(connection.departureDate.slice(0, 10)),
-    });
-    const from = connection.from;
-    const to = connection.to;
+    const from = filters.from;
+    const to = filters.to;
     dispatch(setNewFromPoint(to));
     dispatch(setNewToPoint(from));
   };
 
   const clickOnPrevDate = () => {
-    fetchTickets({
-      from: connection.from,
-      to: connection.to,
-      passangersAmount: connection.passengersAmount,
-      startDate: new Date((new Date(connection.departureDate).getTime() - 86400000)),
-    });
     dispatch(
       setNewDepartureDate(
-        new Date(new Date(connection.departureDate).getTime() - 86400000)
+        new Date(new Date(filters.departureDate).getTime() - 86400000)
       )
     );
   };
 
   const clickOnNextDate = () => {
-    fetchTickets({
-      from: connection.from,
-      to: connection.to,
-      passangersAmount: connection.passengersAmount,
-      startDate: new Date((new Date(connection.departureDate).getTime() + 86400000)),
-    });
     dispatch(
       setNewDepartureDate(
-        new Date(new Date(connection.departureDate).getTime() + 86400000)
+        new Date(new Date(filters.departureDate).getTime() + 86400000)
       )
     );
   };
@@ -159,7 +114,7 @@ const SearchPage = () => {
               <h6>Відправлення</h6>
               <div className={classes["input-group"]}>
                 <DatePicker
-                  value={dayjs(connection.departureDate)}
+                  value={dayjs(filters.departureDate)}
                   slotProps={{
                     inputAdornment: {
                       position: "start",

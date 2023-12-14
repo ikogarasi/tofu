@@ -125,7 +125,7 @@ export class CarrierClient extends ApiBase {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    getCarriers(): Promise<Carrier[] | null> {
+    getCarriers(): Promise<Carrier[]> {
         let url_ = this.baseUrl + "/api/Carrier";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -143,7 +143,7 @@ export class CarrierClient extends ApiBase {
         });
     }
 
-    protected processGetCarriers(response: Response): Promise<Carrier[] | null> {
+    protected processGetCarriers(response: Response): Promise<Carrier[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -157,10 +157,10 @@ export class CarrierClient extends ApiBase {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<Carrier[] | null>(null as any);
+        return Promise.resolve<Carrier[]>(null as any);
     }
 
-    addCarrier(request: CarrierDto | undefined): Promise<Carrier | null> {
+    addCarrier(request: CarrierDto | undefined): Promise<Carrier> {
         let url_ = this.baseUrl + "/api/Carrier";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -185,7 +185,7 @@ export class CarrierClient extends ApiBase {
         });
     }
 
-    protected processAddCarrier(response: Response): Promise<Carrier | null> {
+    protected processAddCarrier(response: Response): Promise<Carrier> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
@@ -199,7 +199,7 @@ export class CarrierClient extends ApiBase {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<Carrier | null>(null as any);
+        return Promise.resolve<Carrier>(null as any);
     }
 
     getCarrierById(id: number): Promise<Carrier> {
@@ -241,6 +241,178 @@ export class CarrierClient extends ApiBase {
     }
 }
 
+export class TicketClient extends ApiBase {
+    private http: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> };
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(baseUrl?: string, http?: { fetch(url: RequestInfo, init?: RequestInit): Promise<Response> }) {
+        super();
+        this.http = http ? http : window as any;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    getTicketsByParameters(from: string | undefined, to: string | undefined, startDate: Date | undefined, passangersAmount: number | undefined): Promise<Ticket[]> {
+        let url_ = this.baseUrl + "/filter?";
+        if (from === null)
+            throw new Error("The parameter 'from' cannot be null.");
+        else if (from !== undefined)
+            url_ += "from=" + encodeURIComponent("" + from) + "&";
+        if (to === null)
+            throw new Error("The parameter 'to' cannot be null.");
+        else if (to !== undefined)
+            url_ += "to=" + encodeURIComponent("" + to) + "&";
+        if (startDate === null)
+            throw new Error("The parameter 'startDate' cannot be null.");
+        else if (startDate !== undefined)
+            url_ += "startDate=" + encodeURIComponent(startDate ? "" + startDate.toISOString() : "") + "&";
+        if (passangersAmount === null)
+            throw new Error("The parameter 'passangersAmount' cannot be null.");
+        else if (passangersAmount !== undefined)
+            url_ += "passangersAmount=" + encodeURIComponent("" + passangersAmount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.processGetTicketsByParameters(_response);
+        });
+    }
+
+    protected processGetTicketsByParameters(response: Response): Promise<Ticket[]> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Ticket[];
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Ticket[]>(null as any);
+    }
+
+    getTickets(): Promise<Ticket[]> {
+        let url_ = this.baseUrl + "/api/Ticket";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.processGetTickets(_response);
+        });
+    }
+
+    protected processGetTickets(response: Response): Promise<Ticket[]> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Ticket[];
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Ticket[]>(null as any);
+    }
+
+    addTicket(dto: AddTicketDto | undefined): Promise<Ticket> {
+        let url_ = this.baseUrl + "/api/Ticket";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(dto);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.processAddTicket(_response);
+        });
+    }
+
+    protected processAddTicket(response: Response): Promise<Ticket> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Ticket;
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Ticket>(null as any);
+    }
+
+    removeTicket(id: number): Promise<void> {
+        let url_ = this.baseUrl + "/api/Ticket/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "DELETE",
+            headers: {
+            }
+        };
+
+        return this.transformOptions(options_).then(transformedOptions_ => {
+            return this.http.fetch(url_, transformedOptions_);
+        }).then((_response: Response) => {
+            return this.processRemoveTicket(_response);
+        });
+    }
+
+    protected processRemoveTicket(response: Response): Promise<void> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            return;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<void>(null as any);
+    }
+}
+
 export interface RegisterDto {
     userEmail: string;
     userPassword: string;
@@ -265,6 +437,28 @@ export interface CarrierDto {
     title: string;
     description: string;
     image: any;
+}
+
+export interface Ticket {
+    id: number;
+    from: string;
+    to: string;
+    startDate: Date;
+    endDate: Date;
+    price: number;
+    passangersAmount: number;
+    carrierId: number;
+    carrier: Carrier;
+}
+
+export interface AddTicketDto {
+    from: string;
+    to: string;
+    startDate: Date;
+    endDate: Date;
+    passangersAmount: number;
+    price: number;
+    carrier: string;
 }
 
 export class ApiException extends Error {

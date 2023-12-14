@@ -4,7 +4,8 @@
     "webApiToOpenApi": {
       "controllerNames": [
         "TofuApi.Controllers.AuthController",
-        "TofuApi.Controllers.CarrierController"
+        "TofuApi.Controllers.CarrierController",
+        "TofuApi.Controllers.TicketController"
       ],
       "isAspNetCore": true,
       "resolveJsonOptions": false,

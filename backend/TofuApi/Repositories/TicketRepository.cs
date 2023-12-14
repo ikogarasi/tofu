@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TofuApi.Dto;
 using TofuApi.Infrastructure;
+using TofuApi.models;
 
 namespace TofuApi.Repositories
 {
-    public class TicketRepository: ITicketRepository
+    public class TicketRepository : ITicketRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -13,26 +14,55 @@ namespace TofuApi.Repositories
             _context = context;
         }
 
-        public async Task<List<GetTicketDTO>> getTicketDTOs(TicketDTO ticketDTO)
+        public async Task<IEnumerable<Ticket>> GetFilteredTickets(TicketQueryParamsDto ticketDTO)
         {
-            var tickets = await _context.Tickets.Where(e => e.From == ticketDTO.From && e.To == ticketDTO.To && e.StartDate.Year == ticketDTO.StartDate.Year && e.StartDate.Month == ticketDTO.StartDate.Month && e.StartDate.Day == ticketDTO.StartDate.Day && e.PassangersAmount == ticketDTO.PassangersAmount).ToListAsync();
-            List<GetTicketDTO> getTicketDTOs = new List<GetTicketDTO>();
+            var tickets = await _context.Tickets
+                .Include(i => i.Carrier)
+                .Where(e => e.From == ticketDTO.From
+                    && e.To == ticketDTO.To
+                    && e.StartDate.Year == ticketDTO.StartDate.Year
+                    && e.StartDate.Month == ticketDTO.StartDate.Month
+                    && e.StartDate.Day == ticketDTO.StartDate.Day
+                    && e.PassangersAmount == ticketDTO.PassangersAmount)
+                .ToListAsync();
 
-            foreach (var ticket in tickets)
+            return tickets;
+        }
+
+        public async Task<IEnumerable<Ticket>> GetTickets()
+        {
+            var tickets = await _context.Tickets.Include(i => i.Carrier).ToListAsync();
+
+            return tickets;
+        }
+
+        public async Task<Ticket> AddNewTicket(AddTicketDto dto)
+        {
+            var carrier = await _context.Carriers.FirstOrDefaultAsync(i => i.Title.ToLower() == dto.Carrier.ToLower())
+                ?? throw new ArgumentException("Carrier with such name does not exist");
+
+            var ticket = new Ticket
             {
-                getTicketDTOs.Add(new GetTicketDTO()
-                {
-                    From = ticket.From,
-                    To = ticket.To,
-                    StartDate = ticket.StartDate,
-                    EndDate = ticket.EndDate,
-                    Price = ticket.Price,
-                    PassangersAmount = ticket.PassangersAmount,
-                    CarrierName = (await _context.Carriers.FirstOrDefaultAsync(e => e.Id == ticket.CarrierId)).Title
-                });
-            }
+                CarrierId = carrier.Id,
+                From = dto.From,
+                To = dto.To,
+                StartDate = dto.StartDate,
+                EndDate = dto.EndDate
+            };
 
-            return getTicketDTOs;
+            await _context.Tickets.AddAsync(ticket);
+            await _context.SaveChangesAsync();
+
+            return ticket;
+        }
+
+        public async Task DeleteTickets(int id)
+        {
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(i => i.Id == id)
+                ?? throw new ArgumentException("Ticket with such id does not exist");
+
+            _context.Tickets.Remove(ticket);
+            await _context.SaveChangesAsync();
         }
     }
 }

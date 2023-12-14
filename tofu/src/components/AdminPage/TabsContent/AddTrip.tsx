@@ -1,7 +1,8 @@
 import { FormEvent, useState } from "react";
 import { Dropdown } from "react-bootstrap";
-import { useAppDispatch } from "../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { addTicket } from "../../../store/slices/ticketsSlice";
+import { Carrier } from "../../../store/slices/carriersSlice";
 
 const cities: string[] = [
   "Київ",
@@ -14,7 +15,7 @@ const cities: string[] = [
   "Вінниця",
 ];
 
-const carriers: string[] = ["FlixBus", "FlexBus", "FluxBus", "FlaxBus"];
+//const carriers: string[] = ["FlixBus", "FlexBus", "FluxBus", "FlaxBus"];
 
 interface ValidFields {
   routeBegin: boolean;
@@ -27,6 +28,8 @@ interface ValidFields {
 }
 
 const AddTrip = () => {
+  const carriers = useAppSelector((state) => state.carriers);
+
   const [routeBeginName, setRouteBeginName] = useState<string>("");
   const [routeEndName, setRouteEndName] = useState<string>("");
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -36,7 +39,7 @@ const AddTrip = () => {
   const [count, setCount] = useState<number>(0);
 
   const [matchingCities, setMatchingCities] = useState<string[]>([]);
-  const [matchingCarriers, setMatchingCarriers] = useState<string[]>(carriers);
+  const [matchingCarriers, setMatchingCarriers] = useState<Carrier[]>(carriers);
 
   const [isRbDropdownVisible, setIsRbDropdownVisible] =
     useState<boolean>(false);
@@ -130,7 +133,7 @@ const AddTrip = () => {
 
   const handleCarriersInputChange = (inputText: string) => {
     const matchingCarriers = carriers.filter((carrier) =>
-      carrier.toLowerCase().startsWith(inputText.toLowerCase())
+      carrier.name.toLowerCase().startsWith(inputText.toLowerCase())
     );
 
     setMatchingCarriers(matchingCarriers);
@@ -319,12 +322,12 @@ const AddTrip = () => {
           {matchingCarriers.length > 0 && (
             <Dropdown show={isCarDropdownVisible}>
               <Dropdown.Menu>
-                {matchingCarriers.map((city) => (
+                {matchingCarriers.map((carrier) => (
                   <Dropdown.Item
-                    key={city}
-                    onClick={() => handleDropdownItemClick(city, 2)}
+                    key={carrier.id}
+                    onClick={() => handleDropdownItemClick(carrier.name, 2)}
                   >
-                    {city}
+                    {carrier.name}
                   </Dropdown.Item>
                 ))}
               </Dropdown.Menu>
