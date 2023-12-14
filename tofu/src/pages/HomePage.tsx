@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./homepage.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Dropdown } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useNavigate } from "react-router-dom";
-import { Connection, setConnection } from "../store/slices/connectionSliceHomePage";
+import {
+  Connection,
+  setConnection,
+} from "../store/slices/connectionSliceHomePage";
+import { cleanUser } from "../store/slices/userSlice";
 
 export const HomePage = () => {
   const connection = useAppSelector((state) => state.connection);
@@ -13,16 +17,17 @@ export const HomePage = () => {
   const [matchingCities, setMatchingCities] = useState<string[]>([]);
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [isDropdownVisible1, setIsDropdownVisible1] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState<Date>(new Date(connection.departureDate));
-  const [passengersAmount, setPassengersAmount] = useState<number>(connection.passengersAmount);
+  const [startDate, setStartDate] = useState<Date>(
+    new Date(connection.departureDate)
+  );
+  const [passengersAmount, setPassengersAmount] = useState<number>(
+    connection.passengersAmount
+  );
   const today = new Date().toISOString().slice(0, 16);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuthenticated = useAppSelector(state => state.user.isAuthenticated);
-
-  const userName = JSON.parse(localStorage.getItem('user') || '');
-  const loggedIn = JSON.parse(localStorage.getItem('loggedIn') || '');
+  const user = useAppSelector((state) => state.user);
 
   const onSearchClick = () => {
     const connection: Connection = {
@@ -33,9 +38,8 @@ export const HomePage = () => {
     };
     dispatch(setConnection(connection));
 
-    //navigate("/search-page");
+    navigate("/search-page");
   };
-  console.log(loggedIn)
 
   const handleInputChange = (inputText: string, inputNumber: number) => {
     // Шукаємо міста, що починаються з введених букв
@@ -84,9 +88,9 @@ export const HomePage = () => {
   };
 
   const handleLogout = () => {
-    localStorage.setItem('loggedIn', 'false');
-    navigate('/');
-  }
+    dispatch(cleanUser());
+    navigate("/");
+  };
 
   return (
     <div>
@@ -125,25 +129,30 @@ export const HomePage = () => {
                   </a>
                 </li>
               </ul>
-              {isAuthenticated ? (
-              <>
-              <h5 className="header-link" style={{color: 'white', marginRight: 20}}>Hi {userName.firstName}!</h5>
-              <a
-                type="button"
-                className="button-sign-in btn btn-outline-light"
-                onClick={handleLogout}
-              >
-                Log out
-              </a>
-              </>
+              {user.isAuthenticated ? (
+                <>
+                  <h5
+                    className="header-link"
+                    style={{ color: "white", marginRight: 20 }}
+                  >
+                    Hi {user.userData.userName}!
+                  </h5>
+                  <a
+                    type="button"
+                    className="button-sign-in btn btn-outline-light"
+                    onClick={handleLogout}
+                  >
+                    Log out
+                  </a>
+                </>
               ) : (
-              <a
-                type="button"
-                className="button-sign-in btn btn-outline-light"
-                href="/signIn"
-              >
-                Sign in
-              </a>
+                <a
+                  type="button"
+                  className="button-sign-in btn btn-outline-light"
+                  href="/signIn"
+                >
+                  Sign in
+                </a>
               )}
             </div>
           </div>
@@ -255,7 +264,11 @@ export const HomePage = () => {
                   placeholder="1 Adult"
                   aria-label="1 Adult"
                 />
-                <button type="button" onClick={onSearchClick} className="btn btn-primary">
+                <button
+                  type="button"
+                  onClick={onSearchClick}
+                  className="btn btn-primary"
+                >
                   Search
                 </button>
               </div>
@@ -423,9 +436,7 @@ export const HomePage = () => {
         </div>
       </div>
 
-      <div className="container">
-        
-      </div>
+      <div className="container"></div>
     </div>
   );
 };

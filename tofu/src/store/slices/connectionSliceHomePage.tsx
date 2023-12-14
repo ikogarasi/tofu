@@ -19,8 +19,11 @@ export const connectionSlice = createSlice({
   initialState,
   reducers: {
     setConnection(state, action: PayloadAction<Connection>) {
-      console.log(state);
-      state = action.payload;
+      console.log(action.payload);
+      state.from = action.payload.from;
+      state.to = action.payload.to;
+      state.departureDate = action.payload.departureDate;
+      state.passengersAmount = action.payload.passengersAmount;
       console.log(state);
     },
     setNewDepartureDate(state, action: PayloadAction<Date>) {
