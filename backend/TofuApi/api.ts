@@ -252,20 +252,14 @@ export class TicketClient extends ApiBase {
         this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
 
-    getTicketsByParameters(from: string | undefined, to: string | undefined, startDate: Date | undefined, passangersAmount: number | undefined): Promise<Ticket[]> {
-        let url_ = this.baseUrl + "/filter?";
-        if (from === null)
-            throw new Error("The parameter 'from' cannot be null.");
-        else if (from !== undefined)
+    getTicketsByParameters(from: string | null | undefined, to: string | null | undefined, startDate: string | null | undefined, passangersAmount: number | undefined): Promise<Ticket[]> {
+        let url_ = this.baseUrl + "/api/Ticket/filter?";
+        if (from !== undefined && from !== null)
             url_ += "from=" + encodeURIComponent("" + from) + "&";
-        if (to === null)
-            throw new Error("The parameter 'to' cannot be null.");
-        else if (to !== undefined)
+        if (to !== undefined && to !== null)
             url_ += "to=" + encodeURIComponent("" + to) + "&";
-        if (startDate === null)
-            throw new Error("The parameter 'startDate' cannot be null.");
-        else if (startDate !== undefined)
-            url_ += "startDate=" + encodeURIComponent(startDate ? "" + startDate.toISOString() : "") + "&";
+        if (startDate !== undefined && startDate !== null)
+            url_ += "startDate=" + encodeURIComponent("" + startDate) + "&";
         if (passangersAmount === null)
             throw new Error("The parameter 'passangersAmount' cannot be null.");
         else if (passangersAmount !== undefined)

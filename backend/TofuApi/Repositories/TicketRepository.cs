@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using TofuApi.Dto;
 using TofuApi.Infrastructure;
 using TofuApi.models;
@@ -16,15 +17,28 @@ namespace TofuApi.Repositories
 
         public async Task<IEnumerable<Ticket>> GetFilteredTickets(TicketQueryParamsDto ticketDTO)
         {
-            var tickets = await _context.Tickets
-                .Include(i => i.Carrier)
-                .Where(e => e.From == ticketDTO.From
-                    && e.To == ticketDTO.To
-                    && e.StartDate.Year == ticketDTO.StartDate.Year
-                    && e.StartDate.Month == ticketDTO.StartDate.Month
-                    && e.StartDate.Day == ticketDTO.StartDate.Day
-                    && e.PassangersAmount == ticketDTO.PassangersAmount)
-                .ToListAsync();
+            var tickets = _context.Tickets.Include(i => i.Carrier).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(ticketDTO.StartDate))
+            {
+                var filterDate = DateTime.ParseExact(ticketDTO.StartDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                
+                tickets = tickets.Where(e => e.StartDate.Year == filterDate.Year
+                    && e.StartDate.Month == filterDate.Month
+                    && e.StartDate.Day == filterDate.Day);
+            }
+            if (!string.IsNullOrWhiteSpace(ticketDTO.From))
+            {
+                tickets = tickets.Where(i => i.From.ToLower() == ticketDTO.From.ToLower());
+            }
+            if (!string.IsNullOrWhiteSpace(ticketDTO.To))
+            {
+                tickets = tickets.Where(i => i.To.ToLower() == ticketDTO.To.ToLower());
+            }
+            if (ticketDTO.PassangersAmount != 0)
+            {
+                tickets = tickets.Where(i => i.PassangersAmount == ticketDTO.PassangersAmount);
+            }
 
             return tickets;
         }
@@ -47,7 +61,9 @@ namespace TofuApi.Repositories
                 From = dto.From,
                 To = dto.To,
                 StartDate = dto.StartDate,
-                EndDate = dto.EndDate
+                EndDate = dto.EndDate,
+                PassangersAmount = dto.PassangersAmount,
+                Price = dto.Price
             };
 
             await _context.Tickets.AddAsync(ticket);

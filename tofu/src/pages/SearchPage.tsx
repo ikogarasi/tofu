@@ -31,13 +31,13 @@ export interface ITicket {
 
 const SearchPage = () => {
   const dispatch = useAppDispatch();
-  const filters = useAppSelector((state) => state.connection);
+  const connection = useAppSelector((state) => state.connection);
 
-  const [{ data: tickets = [] }] = useFetchAllTicketsByQueryParamsQuery({
-    from: filters.from,
-    to: filters.to,
-    startDate: new Date(filters.departureDate),
-    passangersAmount: filters.passengersAmount,
+  const { data: tickets = [] } = useFetchAllTicketsByQueryParamsQuery({
+    from: connection.from,
+    to: connection.to,
+    startDate: new Date(connection.departureDate).toISOString().slice(0, 10),
+    passangersAmount: connection.passengersAmount,
   });
 
   const onChangePassengersCount = (event: any) => {
@@ -53,8 +53,8 @@ const SearchPage = () => {
   };
 
   const onSwap = () => {
-    const from = filters.from;
-    const to = filters.to;
+    const from = connection.from;
+    const to = connection.to;
     dispatch(setNewFromPoint(to));
     dispatch(setNewToPoint(from));
   };
@@ -62,7 +62,7 @@ const SearchPage = () => {
   const clickOnPrevDate = () => {
     dispatch(
       setNewDepartureDate(
-        new Date(new Date(filters.departureDate).getTime() - 86400000)
+        new Date(new Date(connection.departureDate).getTime() - 86400000)
       )
     );
   };
@@ -70,7 +70,7 @@ const SearchPage = () => {
   const clickOnNextDate = () => {
     dispatch(
       setNewDepartureDate(
-        new Date(new Date(filters.departureDate).getTime() + 86400000)
+        new Date(new Date(connection.departureDate).getTime() + 86400000)
       )
     );
   };
@@ -102,8 +102,8 @@ const SearchPage = () => {
           <DirectionSelector
             changeFromPoint={onChangeFromPoint}
             changeToPoint={onChangeToPoint}
-            blurFromPoint={onBlurFromPoint}
-            blurToPoint={onBlurToPoint}
+            //blurFromPoint={onBlurFromPoint}
+            //blurToPoint={onBlurToPoint}
             swap={onSwap}
             from={connection.from}
             to={connection.to}
@@ -114,7 +114,7 @@ const SearchPage = () => {
               <h6>Відправлення</h6>
               <div className={classes["input-group"]}>
                 <DatePicker
-                  value={dayjs(filters.departureDate)}
+                  value={dayjs(connection.departureDate)}
                   slotProps={{
                     inputAdornment: {
                       position: "start",
@@ -195,24 +195,3 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
-
-export async function action({ request }: { request: Request }) {
-  const formData = await request.formData();
-
-  const response = await fetch("https://localhost:7128/api/Ticket", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: formData.get("from"),
-      to: formData.get("to"),
-      passangersAmount: formData.get("passengersAmount"),
-      startDate: new Date("2023-12-13"),
-    }),
-  });
-
-  const resData = response.json();
-
-  return resData;
-}

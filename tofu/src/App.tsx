@@ -5,7 +5,7 @@ import RootLayout from "./components/MainLayout/RootLayout";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { RegisterPage } from "./pages/RegisterPage";
 import InformationAboutCarrier from "./pages/InformationAboutCarrier";
-import SearchPage, { action as searchPageAction } from "./pages/SearchPage";
+import SearchPage from "./pages/SearchPage";
 import { HomePage } from "./pages/HomePage";
 import AdminPage from "./components/AdminPage/AdminPage";
 import BookingPage from "./components/BookingPage/BookingPage";
@@ -24,7 +24,6 @@ function App() {
         {
           path: "search-page",
           element: <SearchPage />,
-          action: searchPageAction,
         },
         { path: "admin-page", element: <AdminPage /> },
         { path: "booking-page", element: <BookingPage /> },

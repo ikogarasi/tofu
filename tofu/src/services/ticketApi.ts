@@ -5,7 +5,7 @@ import { AddTicketDto, Ticket } from "../api/api";
 export interface TicketQueryParamsDto {
   from: string | undefined;
   to: string | undefined;
-  startDate: Date | undefined;
+  startDate: string | undefined;
   passangersAmount: number | undefined;
 }
 

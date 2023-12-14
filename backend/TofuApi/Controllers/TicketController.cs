@@ -16,7 +16,7 @@ namespace TofuApi.Controllers
             _ticketRepository = ticketRepository;
         }
 
-        [HttpGet("/filter")]
+        [HttpGet("filter")]
         [ProducesResponseType(typeof(IEnumerable<Ticket>), 200)]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTicketsByParameters([FromQuery] TicketQueryParamsDto ticketDTO)
         {

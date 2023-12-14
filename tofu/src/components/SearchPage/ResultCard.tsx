@@ -1,7 +1,7 @@
 import classes from "./ResultCard.module.css";
 import { Button } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Ticket } from "../../store/slices/ticketsSlice";
+import { Ticket } from "../../api/api";
 
 interface ResCard {
   ticket: Ticket;
@@ -26,7 +26,7 @@ const ResultCard = ({ ticket }: ResCard) => {
         <p className={classes["place-departure"]}>{ticket.from}</p>
 
         <h2 className={classes["info-carrier"]}>
-          Перевізник: {ticket.carriersName}
+          Перевізник: {ticket.carrier.title}
         </h2>
       </div>
 
@@ -39,7 +39,6 @@ const ResultCard = ({ ticket }: ResCard) => {
 
       <div className={classes["price-section"]}>
         <h3>{ticket.price} грн</h3>
-        <p className={classes["ticket-count"]}>{ticket.amount} квитки</p>
         <Button variant="outlined" endIcon={<ArrowForwardIosIcon />}>
           Продовжити
         </Button>
