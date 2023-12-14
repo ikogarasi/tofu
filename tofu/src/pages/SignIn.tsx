@@ -7,30 +7,29 @@ export const Signin = () => {
 
   const [isValid, setIsValid] = useState(true);
   const navigate = useNavigate();
+  const [submitted, isSumbitted] = useState(false);
 
   const [input, setInput] = useState({
     email: '',
     password: ''
   })
 
-  const validateEmail = (email: string): boolean => {
-    // Регулярний вираз для перевірки правильності написання електронної пошти
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+ 
 
 
   const handleLogin = (event: React.FormEvent) => {
     event.preventDefault();
     const loggedUser = JSON.parse(localStorage.getItem('user') || '');
-
-    if (input.email === loggedUser.email && input.password === loggedUser.password) {
-      setIsValid(true);
-      localStorage.setItem('loggedIn', 'true');
-      navigate('/');
-      return;
-    } else {
-      setIsValid(false);
+    if(submitted){
+      if (input.email === loggedUser.email && input.password === loggedUser.password) {
+        setIsValid(true);
+        localStorage.setItem('loggedIn', 'true');
+        navigate('/');
+        return;
+      } else {
+        setIsValid(false);
+      }
+  
     }
 
     console.log('Електронна пошта вірна:', input.email);
@@ -51,7 +50,7 @@ export const Signin = () => {
                           <div className="col-md-6 col-lg-7 d-flex align-items-center">
                             <div className="card-body p-4 p-lg-5 text-black">
               
-                              <form onSubmit={handleLogin} className={isValid ? 'was-validated' : ''}>
+                              <form onSubmit={handleLogin} className={isValid ? '' : 'was-validated'}>
               
                                 <div className="d-flex align-items-center mb-3 pb-1">
                                   <span className="h1 fw-bold mb-0">Tofu</span>
@@ -81,7 +80,7 @@ export const Signin = () => {
                                 </div>
               
                                 <div className="pt-1 mb-4">
-                                  <button className="btn btn-dark btn-lg btn-block" id="loginButton" type='submit'>Login</button>
+                                  <button className="btn btn-dark btn-lg btn-block" id="loginButton" type='submit' onClick={()=>isSumbitted(true)}>Login</button>
                                 </div>
               
                                 <a className="small text-muted" href="#!">Forgot password?</a>

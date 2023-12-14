@@ -40,7 +40,7 @@ export const InfoAllCarriers = () => {
     const handleSearch = () => {
        setCurrentPage(1);
        const findCarrier = 
-       carrierList && carrierList?.length > 0 ? carrierList.filter((c) => c?.name.toLowerCase().startsWith(search)) : undefined;
+       carrierList && carrierList?.length > 0 ? carrierList.filter((c) => c?.name.toLowerCase().startsWith(search.toLowerCase())) : undefined;
        setCarriersList(findCarrier);
     };
 
