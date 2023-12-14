@@ -4,6 +4,7 @@ import './registerpage.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
+import { useRegisterMutation } from '../services/authApi';
 
 export const RegisterPage = () => {
 
@@ -18,7 +19,7 @@ export const RegisterPage = () => {
   
   const [isValid, setIsValid] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
+  const [register] = useRegisterMutation();
   const navigate = useNavigate();
 
   const isValidPassword = () => {
@@ -74,7 +75,7 @@ export const RegisterPage = () => {
       return;
     } else {
       setIsValid(true);
-      localStorage.setItem('user', JSON.stringify(input));
+      register({userEmail: input.email, userPassword: input.password, name: input.firstName, surname: input.lastName, phoneNumber: input.numberPhone})
       navigate('/signIn')
     }
     
