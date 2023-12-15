@@ -1,13 +1,15 @@
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import styles from "../AdminPage.module.css";
-import { removeTicket } from "../../../store/slices/ticketsSlice";
+import {
+  useFetchAllTicketsQuery,
+  useRemoveTicketMutation,
+} from "../../../services/ticketApi";
 
 const ReviewTrips = () => {
-  const tickets = useAppSelector((state) => state.tickets);
-  const dispatch = useAppDispatch();
+  const { data: tickets = [] } = useFetchAllTicketsQuery();
+  const [removeTicket] = useRemoveTicketMutation();
 
-  const onDeleteClick = (ticketId: number) => {
-    dispatch(removeTicket(ticketId));
+  const onDeleteClick = async (ticketId: number) => {
+    await removeTicket(ticketId);
   };
 
   return (
@@ -24,7 +26,7 @@ const ReviewTrips = () => {
             <div className="d-flex flex-row justify-content-between w-100">
               <div className="col-4">
                 <p style={{ margin: 0, fontWeight: "bold", fontSize: "15px" }}>
-                  {ticket.startDate.toDateString()}
+                  {new Date(ticket.startDate).toDateString()}
                 </p>
                 <p style={{ fontSize: "15px", marginBottom: "2rem" }}>
                   {ticket.from}
@@ -32,7 +34,7 @@ const ReviewTrips = () => {
               </div>
               <div className="col-4">
                 <p style={{ margin: 0, fontWeight: "bold", fontSize: "15px" }}>
-                  {ticket.endDate.toDateString()}
+                  {new Date(ticket.endDate).toDateString()}
                 </p>
                 <p>{ticket.to}</p>
               </div>
@@ -43,7 +45,7 @@ const ReviewTrips = () => {
             <div className="row">
               <div className="col-md-6 col-sm">
                 <h2 style={{ fontSize: "30px", fontWeight: 700 }}>
-                  Перевізник: {ticket.carriersName}
+                  Перевізник: {ticket.carrier.title}
                 </h2>
               </div>
               <div className={`col-md-6 col-sm ${styles["remove__button"]}`}>

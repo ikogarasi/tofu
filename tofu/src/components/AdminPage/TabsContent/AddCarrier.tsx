@@ -1,44 +1,32 @@
 import { FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addCarrier } from "../../../store/slices/carriersSlice";
+import { useCreateCarrierMutation } from "../../../services/carrierApi";
 
 const AddCarrier = () => {
-  const [carriersName, setCarriersName] = useState<string>();
-  const [description, setDescription] = useState<string>();
-  const [image, setImage] = useState<string | ArrayBuffer>();
+  const [carriersName, setCarriersName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [image, setImage] = useState<File | null>(null);
 
   const [validCarrierName, setValidCarrierName] = useState<boolean>(true);
-
-  const dispatch = useDispatch();
+  const [addCarrier] = useCreateCarrierMutation();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = function (ee) {
-        setImage(ee.target!.result!);
-      };
-
-      reader.readAsDataURL(file);
-    }
+    setImage(file);
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!carriersName) {
       setValidCarrierName(false);
     } else {
       setValidCarrierName(true);
-      dispatch(
-        addCarrier({
-          name: carriersName,
-          description: description,
-          image: image,
-        })
-      );
+      await addCarrier({
+        title: carriersName,
+        description: description,
+        image: image,
+      });
     }
     console.log("ff");
   };

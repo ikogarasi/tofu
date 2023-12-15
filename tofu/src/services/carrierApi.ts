@@ -5,6 +5,7 @@ import { carrierClient } from "../store/clients";
 export const carrierApi = createApi({
   reducerPath: "carrierApi",
   baseQuery: () => ({ data: {} }),
+  tagTypes: ["Carriers"],
   endpoints: (build) => ({
     getAllCarriers: build.query<Carrier[], void>({
       queryFn: async () => {
@@ -12,6 +13,7 @@ export const carrierApi = createApi({
           data: await carrierClient.getCarriers(),
         };
       },
+      providesTags: ["Carriers"],
     }),
     createCarrier: build.mutation<Carrier, CarrierDto>({
       queryFn: async (dto: CarrierDto) => {
@@ -19,6 +21,7 @@ export const carrierApi = createApi({
           data: await carrierClient.addCarrier(dto),
         };
       },
+      invalidatesTags: ["Carriers"],
     }),
     getCarrierById: build.query<Carrier, number>({
       queryFn: async (id: number) => {
@@ -26,6 +29,7 @@ export const carrierApi = createApi({
           data: await carrierClient.getCarrierById(id),
         };
       },
+      providesTags: ["Carriers"],
     }),
   }),
 });

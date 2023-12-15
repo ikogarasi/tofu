@@ -12,6 +12,7 @@ export interface TicketQueryParamsDto {
 export const ticketApi = createApi({
   reducerPath: "ticketAPI",
   baseQuery: () => ({ data: {} }),
+  tagTypes: ["Ticket"],
   endpoints: (build) => ({
     fetchAllTicketsByQueryParams: build.query<Ticket[], TicketQueryParamsDto>({
       queryFn: async ({
@@ -29,21 +30,25 @@ export const ticketApi = createApi({
           ),
         };
       },
+      providesTags: ["Ticket"],
     }),
     fetchAllTickets: build.query<Ticket[], void>({
       queryFn: async () => {
         return { data: await ticketClient.getTickets() };
       },
+      providesTags: ["Ticket"],
     }),
     addTicket: build.mutation<Ticket, AddTicketDto>({
       queryFn: async (dto: AddTicketDto) => {
         return { data: await ticketClient.addTicket(dto) };
       },
+      invalidatesTags: ["Ticket"],
     }),
     removeTicket: build.mutation<void, number>({
       queryFn: async (id: number) => {
         return { data: await ticketClient.removeTicket(id) };
       },
+      invalidatesTags: ["Ticket"],
     }),
   }),
 });

@@ -5,7 +5,8 @@
       "controllerNames": [
         "TofuApi.Controllers.AuthController",
         "TofuApi.Controllers.CarrierController",
-        "TofuApi.Controllers.TicketController"
+        "TofuApi.Controllers.TicketController",
+        "TofuApi.Controllers.CommentController"
       ],
       "isAspNetCore": true,
       "resolveJsonOptions": false,

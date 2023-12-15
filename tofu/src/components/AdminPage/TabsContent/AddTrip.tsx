@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
 import { Dropdown } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { addTicket } from "../../../store/slices/ticketsSlice";
-import { Carrier } from "../../../store/slices/carriersSlice";
+import { useAddTicketMutation } from "../../../services/ticketApi";
+import { useGetAllCarriersQuery } from "../../../services/carrierApi";
+import { Carrier } from "../../../api/api";
 
 const cities: string[] = [
   "Київ",
@@ -28,7 +28,7 @@ interface ValidFields {
 }
 
 const AddTrip = () => {
-  const carriers = useAppSelector((state) => state.carriers);
+  const { data: carriers = [] } = useGetAllCarriersQuery();
 
   const [routeBeginName, setRouteBeginName] = useState<string>("");
   const [routeEndName, setRouteEndName] = useState<string>("");
@@ -37,6 +37,7 @@ const AddTrip = () => {
   const [carrierName, setCarrierName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [count, setCount] = useState<number>(0);
+  const [addTicket] = useAddTicketMutation();
 
   const [matchingCities, setMatchingCities] = useState<string[]>([]);
   const [matchingCarriers, setMatchingCarriers] = useState<Carrier[]>(carriers);
@@ -60,9 +61,7 @@ const AddTrip = () => {
 
   const today = new Date().toISOString().slice(0, 16);
 
-  const dispatch = useAppDispatch();
-
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const fields: ValidFields = {
@@ -109,17 +108,15 @@ const AddTrip = () => {
     if (Object.values(fields).indexOf(false) >= 0) {
       setValid(fields);
     } else {
-      dispatch(
-        addTicket({
-          from: routeBeginName,
-          to: routeEndName,
-          startDate: startDate,
-          endDate: endDate,
-          carriersName: carrierName,
-          price: price,
-          amount: count,
-        })
-      );
+      await addTicket({
+        from: routeBeginName,
+        to: routeEndName,
+        startDate: startDate,
+        endDate: endDate,
+        carrier: carrierName,
+        price: price,
+        passangersAmount: count,
+      });
     }
   };
 
@@ -133,7 +130,7 @@ const AddTrip = () => {
 
   const handleCarriersInputChange = (inputText: string) => {
     const matchingCarriers = carriers.filter((carrier) =>
-      carrier.name.toLowerCase().startsWith(inputText.toLowerCase())
+      carrier.title.toLowerCase().startsWith(inputText.toLowerCase())
     );
 
     setMatchingCarriers(matchingCarriers);
@@ -325,9 +322,9 @@ const AddTrip = () => {
                 {matchingCarriers.map((carrier) => (
                   <Dropdown.Item
                     key={carrier.id}
-                    onClick={() => handleDropdownItemClick(carrier.name, 2)}
+                    onClick={() => handleDropdownItemClick(carrier.title, 2)}
                   >
-                    {carrier.name}
+                    {carrier.title}
                   </Dropdown.Item>
                 ))}
               </Dropdown.Menu>

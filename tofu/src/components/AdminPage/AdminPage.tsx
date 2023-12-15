@@ -12,25 +12,6 @@ export interface Trip {
   price: number;
 }
 
-const trips: Trip[] = [
-  {
-    departureStation: "Львів (Стрийський автовокзал)",
-    arrivalStation: "Київ (головний вокзал)",
-    departureTime: "09:50",
-    arrivalTime: "09:50",
-    carrier: "FlixBus",
-    price: 500,
-  },
-  {
-    departureStation: "Львів (Стрийський автовокзал)",
-    arrivalStation: "Київ (головний вокзал)",
-    departureTime: "09:50",
-    arrivalTime: "09:50",
-    carrier: "FlixBus",
-    price: 500,
-  },
-];
-
 const AdminPage = () => {
   const tabsHeaders: TabHeader[] = [
     { title: "Add Carrier", targetName: "addcarrier" },
